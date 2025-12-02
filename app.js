@@ -166,7 +166,7 @@ bot.on("channel_post", async (msg) => {
         stream.on("finish", resolve);
         stream.on("error", reject);
       });
-      const localUrl = `http://localhost:8000/uploads/${filename}`;
+      const localUrl = `http://http://13.60.191.29/uploads/${filename}`;
       await Movie.update({ thumb_url: localUrl }, { where: { id: lastMovieId } });
       console.log("📸 Thumbnail saqlandi:", localUrl);
       lastMovieId = null;

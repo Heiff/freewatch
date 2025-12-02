@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 
 const Context = createContext()
 const ContextProvider = ({ children }) => {
-  const api = 'http://localhost:8000'
+  const api = 'http://13.60.191.29'
   const navigate = useNavigate();
   const [data,setData] = useState([]);
   const [sortingData,setSortingData] = useState([])
