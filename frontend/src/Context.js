@@ -21,14 +21,12 @@ const ContextProvider = ({ children }) => {
        const res = await axios.get(`${api}/film`);
        setData(res.data)
     } catch (error) {
-        console.log(error);
-        
+        console.log(error.message);
     }
   }
   useEffect(() =>{
     GetData()
   },[]);
-  console.log(sortingData);
   
 
   const Filter = async() =>{
