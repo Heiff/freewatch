@@ -1,0 +1,936 @@
+.footer {
+  background: #123243;
+  height: 600px;
+}
+.footer .cards {
+  display: flex;
+  gap: 20px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding: 90px 0 40px 0;
+}
+.footer .cards .cards:active {
+  cursor: grabbing;
+}
+.footer .cards a {
+  position: relative;
+  min-width: 250px;
+  background: #222;
+  color: #fff;
+  border-radius: 12px;
+  flex-shrink: 0;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease, z-index 0.5s ease;
+  padding: 10px 15px;
+}
+.footer .cards a img {
+  border-radius: 7px;
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
+.footer .cards a h2 {
+  display: flex;
+  justify-content: center;
+  font-size: 26px;
+  color: white;
+}
+.footer .cards a div {
+  display: flex;
+  justify-content: space-between;
+}
+.footer .cards a div p {
+  color: white;
+  font-size: 20px;
+}
+.footer .cards a:hover {
+  background: #F6EBD9;
+  transform: scale(1.15) translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+.footer .cards a:hover h2 {
+  color: #123243;
+}
+.footer .cards a:hover div p {
+  color: #123243;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media only screen and (min-width: 400px) {
+  .home {
+    background: #F6EBD9;
+  }
+  .home .about-us h1 {
+    font-size: 22px;
+    color: #123243;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .home .about-us .cards {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+  }
+  .home .about-us .cards img {
+    width: 100%;
+  }
+  .home .about-us .cards div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .home .about-us .cards div h2 {
+    color: #123243;
+    font-size: 18px;
+  }
+  .home .about-us .cards div p {
+    color: #123243;
+    font-size: 16px;
+  }
+  .home .about-us .cards div .bot-btn {
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #123243;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: max-content;
+  }
+  .home .about-us .cards div .bot-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .home .about-us .cards div {
+    /* Hoverda strelka suriladi */
+  }
+  .home .about-us .cards div .bot-btn:hover .arrow {
+    transform: translateX(5px);
+  }
+  .home .movie {
+    margin-top: 30px;
+  }
+  .home .movie h1 {
+    color: #123243;
+    font-size: 22px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .home .movie .cards {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding-bottom: 50px;
+  }
+  .home .movie .cards a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 250px;
+    background: #123243;
+    color: #fff;
+    border-radius: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease, z-index 0.5s ease;
+    padding: 10px 15px;
+  }
+  .home .movie .cards a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .home .movie .cards a h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .home .movie .cards a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .home .movie .cards a div p {
+    color: white;
+    font-size: 20px;
+  }
+  .home .movie .cards a:hover {
+    background: #F6EBD9;
+    transform: scale(1.15) translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
+  .home .movie .cards a:hover h2 {
+    color: #123243;
+  }
+  .home .movie .cards a:hover div p {
+    color: #123243;
+  }
+}
+@media only screen and (min-width: 750px) {
+  .home .about-us h1 {
+    font-size: 26px;
+    padding: 15px 0;
+  }
+  .home .about-us .cards img {
+    width: 100%;
+  }
+  .home .about-us .cards div h2 {
+    font-size: 22px;
+  }
+  .home .about-us .cards div p {
+    font-size: 20px;
+  }
+  .home .about-us .cards div .bot-btn {
+    font-size: 18px;
+  }
+  .home .movie {
+    margin-top: 50px;
+  }
+  .home .movie h1 {
+    font-size: 22px;
+    margin: 15px 0;
+  }
+  .home .movie .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding-bottom: 50px;
+  }
+  .home .movie .cards a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .home .movie .cards a h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .home .movie .cards a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .home .movie .cards a div p {
+    color: white;
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .home .about-us h1 {
+    font-size: 28px;
+    padding: 20px 0;
+  }
+  .home .about-us .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home .about-us .cards img {
+    width: 100%;
+  }
+  .home .about-us .cards div h2 {
+    font-size: 22px;
+  }
+  .home .about-us .cards div p {
+    font-size: 18px;
+  }
+  .home .about-us .cards div .bot-btn {
+    font-size: 18px;
+  }
+  .home .movie {
+    margin-top: 100px;
+  }
+  .home .movie h1 {
+    font-size: 28px;
+    margin: 30px 0;
+  }
+  .home .movie .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .home .about-us h1 {
+    font-size: 28px;
+    padding: 20px 0;
+  }
+  .home .about-us .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home .about-us .cards img {
+    width: 100%;
+  }
+  .home .about-us .cards div h2 {
+    font-size: 22px;
+  }
+  .home .about-us .cards div p {
+    font-size: 18px;
+  }
+  .home .about-us .cards div .bot-btn {
+    font-size: 18px;
+  }
+  .home .movie {
+    margin-top: 100px;
+  }
+  .home .movie h1 {
+    font-size: 28px;
+    margin: 30px 0;
+  }
+  .home .movie .cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+@media only screen and (min-width: 1800px) {
+  .home .about-us h1 {
+    font-size: 32px;
+    padding: 30px 0;
+  }
+  .home .about-us .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .home .about-us .cards img {
+    width: 100%;
+  }
+  .home .about-us .cards div {
+    gap: 30px;
+  }
+  .home .about-us .cards div h2 {
+    font-size: 26px;
+  }
+  .home .about-us .cards div p {
+    font-size: 24px;
+  }
+  .home .about-us .cards div .bot-btn {
+    font-size: 18px;
+  }
+  .home .movie {
+    margin-top: 100px;
+  }
+  .home .movie h1 {
+    font-size: 28px;
+    margin: 30px 0;
+  }
+  .home .movie .cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 400px) {
+  .movie-page {
+    background: #F6EBD9;
+  }
+  .movie-page .box {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .movie-page .box .cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .movie-page .box .cards img {
+    width: 70%;
+    height: 400px;
+    margin: 0 auto;
+  }
+  .movie-page .box .cards div {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .movie-page .box .cards div h1 {
+    font-size: 22px;
+    color: #123243;
+  }
+  .movie-page .box .cards div h2 {
+    color: #123243;
+    font-size: 18px;
+  }
+  .movie-page .box .cards div p {
+    font-size: 16px;
+    color: #123243;
+  }
+  .movie-page .box .cards div .bot-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #123243;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: max-content;
+  }
+  .movie-page .box .cards div .bot-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .movie-page .box .cards div {
+    /* Hoverda strelka suriladi */
+  }
+  .movie-page .box .cards div .bot-btn:hover .arrow {
+    transform: translateX(5px);
+  }
+}
+@media only screen and (min-width: 750px) {
+  .movie-page {
+    background: #F6EBD9;
+  }
+  .movie-page .box {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .movie-page .box .cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .movie-page .box .cards img {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+  }
+  .movie-page .box .cards div {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .movie-page .box .cards div h1 {
+    font-size: 24px;
+    color: #123243;
+  }
+  .movie-page .box .cards div h2 {
+    color: #123243;
+    font-size: 20px;
+  }
+  .movie-page .box .cards div p {
+    font-size: 18px;
+    color: #123243;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .movie-page {
+    background: #F6EBD9;
+  }
+  .movie-page .box {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .movie-page .box .cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 30px 0;
+  }
+  .movie-page .box .cards img {
+    width: 310px;
+    height: 400px;
+    margin: 0 auto;
+  }
+  .movie-page .box .cards div {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .movie-page .box .cards div h1 {
+    font-size: 26px;
+  }
+  .movie-page .box .cards div h2 {
+    font-size: 22px;
+  }
+  .movie-page .box .cards div p {
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 400px) {
+  .movies {
+    background: #F6EBD9;
+  }
+  .movies .pagination {
+    padding: 20px 0;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: end;
+  }
+  .movies .pagination button {
+    padding: 5px 15px;
+    font-size: 18px;
+    background: none;
+    border: 1px solid #123243;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .movies .pagination span {
+    font-size: 18px;
+  }
+  .movies .pagination button:hover {
+    background: #123243;
+    color: white;
+  }
+  .movies .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .movies .filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  .movies .filter div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .filter select {
+    padding: 5px 20px 5px 10px;
+    font-size: 18px;
+    width: 100px;
+    background: #123243;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 4px;
+  }
+  .movies .filter button {
+    padding: 5px 10px;
+    height: max-content;
+    font-size: 18px;
+    color: #123243;
+    border-radius: 4px;
+    border: 1px solid #123243;
+    cursor: pointer;
+  }
+  .movies .filter button:hover {
+    background: #123243;
+    color: white;
+  }
+  .movies .box {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    width: 100%;
+    padding: 50px 0;
+  }
+  .movies .box a {
+    position: relative;
+    min-width: 250px;
+    background: #123243;
+    color: #fff;
+    border-radius: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease, z-index 0.5s ease;
+    padding: 10px 15px;
+  }
+  .movies .box a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .movies .box a h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .movies .box a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .movies .box a div h2 {
+    color: white;
+    font-size: 20px;
+  }
+  .movies .box a:hover {
+    background: #F6EBD9;
+    transform: scale(1.15) translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
+  .movies .box a:hover h1 {
+    color: #123243;
+  }
+  .movies .box a:hover div h2 {
+    color: #123243;
+  }
+}
+@media only screen and (min-width: 750px) {
+  .movies {
+    background: #F6EBD9;
+  }
+  .movies .filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .movies .filter div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .filter select {
+    padding: 5px 20px 5px 10px;
+    font-size: 18px;
+    width: 100px;
+  }
+  .movies .filter button {
+    padding: 5px 10px;
+    height: max-content;
+    font-size: 18px;
+  }
+  .movies .box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 50px 0;
+  }
+  .movies .box a {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .box a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .movies .box a h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .movies .box a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .movies .box a div h2 {
+    color: white;
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .movies {
+    background: #F6EBD9;
+  }
+  .movies .filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .movies .filter div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .filter select {
+    padding: 5px 20px 5px 10px;
+    font-size: 18px;
+    width: 100px;
+  }
+  .movies .filter button {
+    padding: 5px 10px;
+    height: max-content;
+    font-size: 18px;
+  }
+  .movies .box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 50px 0;
+  }
+  .movies .box a {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .box a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .movies .box a h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .movies .box a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .movies .box a div h2 {
+    color: white;
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .movies {
+    background: #F6EBD9;
+  }
+  .movies .filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .movies .filter div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .filter div label {
+    font-size: 18px;
+  }
+  .movies .filter select {
+    padding: 5px 20px 5px 10px;
+    font-size: 22px;
+    width: 170px;
+  }
+  .movies .filter button {
+    padding: 5px 10px;
+    height: max-content;
+    font-size: 22px;
+  }
+  .movies .box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 50px 0;
+  }
+  .movies .box a {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .box a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .movies .box a h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .movies .box a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .movies .box a div h2 {
+    color: white;
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 1800px) {
+  .movies {
+    background: #F6EBD9;
+  }
+  .movies .filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .movies .filter div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .filter div label {
+    font-size: 18px;
+  }
+  .movies .filter select {
+    padding: 5px 20px 5px 10px;
+    font-size: 22px;
+    width: 170px;
+  }
+  .movies .filter button {
+    padding: 5px 10px;
+    height: max-content;
+    font-size: 22px;
+  }
+  .movies .box {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 100%;
+    padding: 50px 0;
+  }
+  .movies .box a {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .movies .box a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .movies .box a h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .movies .box a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .movies .box a div h2 {
+    color: white;
+    font-size: 20px;
+  }
+}
+@media only screen and (min-width: 400px) {
+  nav {
+    background: #F6EBD9;
+  }
+  nav .cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .cards img {
+    width: 150px;
+  }
+  nav .cards div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  nav .cards div button {
+    border: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    display: none;
+  }
+  nav .cards div a {
+    font-size: 16px;
+    color: #123243;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 7px;
+  }
+  nav .cards div a:hover {
+    background: #123243;
+    color: white;
+  }
+}
+@media only screen and (min-width: 750px) {
+  nav {
+    background: #F6EBD9;
+  }
+  nav .cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .cards img {
+    width: 150px;
+  }
+  nav .cards div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  nav .cards div button {
+    display: block;
+  }
+  nav .cards div a {
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  nav {
+    background: #F6EBD9;
+  }
+  nav .cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .cards img {
+    width: 150px;
+  }
+  nav .cards div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+  nav .cards div button {
+    display: block;
+    font-size: 22px;
+  }
+  nav .cards div a {
+    font-size: 22px;
+  }
+}
+
+/*# sourceMappingURL=App.css.map */

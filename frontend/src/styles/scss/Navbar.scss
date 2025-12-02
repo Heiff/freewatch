@@ -1,0 +1,104 @@
+@media only screen and (min-width:400px){
+    nav{
+    background: #F6EBD9;
+    & .cards{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+
+        & img{
+            width: 150px;
+        }
+
+        & div{
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            & button{
+                border:none;
+                font-size: 16px;
+                padding: 5px 10px;
+                display: none;
+            }
+
+            & a{
+                font-size: 16px;
+                color: #123243;
+                text-decoration: none;
+                padding: 5px 10px;
+                border-radius: 7px;
+            }
+
+            & a:hover{
+                background: #123243;
+                color: white;
+            }
+        }
+    }
+}
+}
+
+@media only screen and (min-width:750px){
+    nav{
+    background: #F6EBD9;
+    & .cards{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+
+        & img{
+            width: 150px;
+        }
+
+        & div{
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            & button{
+                display: block;
+            }
+
+            & a{
+                font-size: 16px;
+            }
+        }
+    }
+}
+}
+
+@media only screen and (min-width:1000px){
+    nav{
+    background: #F6EBD9;
+    & .cards{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+
+        & img{
+            width: 150px;
+        }
+
+        & div{
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            & button{
+                display: block;
+                font-size: 22px;
+            }
+
+            & a{
+                font-size: 22px;
+            }
+        }
+    }
+}
+}
+
+
