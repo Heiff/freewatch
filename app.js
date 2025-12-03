@@ -257,57 +257,52 @@ function escapeMD(str = "") {
 
 // USERS PAGE function
 async function sendUsersPage(chatId, pageIndex, messageId = null) {
-  const { count, rows } = await Users.findAndCountAll({
-    order: [["id", "ASC"]],
-    offset: pageIndex * USERS_PAGE_SIZE,
-    limit: USERS_PAGE_SIZE,
-  });
+  try {
+    const { count, rows } = await Users.findAndCountAll({
+      order: [["id", "ASC"]],
+      offset: pageIndex * USERS_PAGE_SIZE,
+      limit: USERS_PAGE_SIZE,
+    });
 
-  const totalPages = Math.ceil(count / USERS_PAGE_SIZE);
+    const totalPages = Math.ceil(count / USERS_PAGE_SIZE);
 
-  let text = `👥 *Foydalanuvchilar ro‘yxati*  
-Jami: *${count} ta*  
-Sahifa: *${pageIndex + 1}/${totalPages}*  
+    // Text
+    let text = `👥 *Foydalanuvchilar ro‘yxati*\n`;
+    text += `Jami: *${count} ta*\n`;
+    text += `Sahifa: *${pageIndex + 1}/${totalPages}*\n\n`;
 
-`;
+    rows.forEach((u, i) => {
+      const index = pageIndex * USERS_PAGE_SIZE + i + 1;
+      text += `*${index}.* ID: \`${u.chatId}\`\n`;
+      if (u.firstName) text += `👤 ${u.firstName}\n`;
+      if (u.username) text += `📛 @${u.username}\n`;
+      text += `--------------------------\n`;
+    });
 
-  rows.forEach((u, i) => {
-    const index = pageIndex * USERS_PAGE_SIZE + i + 1;
+    const nav = [];
+    if (pageIndex > 0)
+      nav.push({ text: "⏮ Oldingi", callback_data: `users_page:${pageIndex - 1}` });
+    if (pageIndex < totalPages - 1)
+      nav.push({ text: "⏭ Keyingi", callback_data: `users_page:${pageIndex + 1}` });
 
-    text += `*${index}\\.*
-ID: \`${escapeMD(u.chatId)}\`
-`;
+    const opts = {
+      chat_id: chatId,
+      parse_mode: "Markdown",
+      reply_markup: { inline_keyboard: nav.length ? [nav] : [] },
+    };
 
-    if (u.firstName)
-      text += `👤 ${escapeMD(u.firstName)}\n`;
+    if (messageId) {
+      opts.message_id = messageId;
+      return await bot.editMessageText(text, opts);
+    } else {
+      return await bot.sendMessage(chatId, text, opts);
+    }
 
-    if (u.username)
-      text += `📛 @${escapeMD(u.username)}\n`;
-
-    text += `-----------------------------\n`;
-  });
-
-  // Navigation buttons
-  const nav = [];
-  if (pageIndex > 0)
-    nav.push({ text: "⏮ Oldingi", callback_data: `users_page:${pageIndex - 1}` });
-
-  if (pageIndex < totalPages - 1)
-    nav.push({ text: "⏭ Keyingi", callback_data: `users_page:${pageIndex + 1}` });
-
-  let options = {
-    chat_id: chatId,
-    parse_mode: "MarkdownV2",
-    reply_markup: { inline_keyboard: nav.length ? [nav] : [] },
-  };
-
-  if (messageId) {
-    options.message_id = messageId;
-    await bot.editMessageText(text, options);
-  } else {
-    await bot.sendMessage(chatId, text, options);
+  } catch (err) {
+    console.error("❌ USERS PAGE ERROR:", err.response?.body || err);
   }
 }
+
 
 
 // ====================== PHOTO BROADCAST ======================
