@@ -19,7 +19,7 @@ app.use(cors({ origin: "*", methods: ["GET","POST","PUT","DELETE","OPTIONS"], al
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
-app.use(router);
+app.use("/api",router);
 
 // ====================== BOT CONFIG ======================
 const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
