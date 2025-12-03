@@ -38,8 +38,8 @@ const Movie = () => {
                 })
             }
             <div className='box'>
-                {data.map((el, index) => (
-                    <div className='cards' key={index}>
+                {data.map((el) => (
+                    <div className='cards' key={el.id}>
                         <img src={el.thumb_url} alt={el.film} />
                         <div>
                             <h1>🎬 Фильм: {el.film}</h1>
