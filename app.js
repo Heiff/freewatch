@@ -115,7 +115,7 @@ bot.on("callback_query", async (query) => {
   bot.answerCallbackQuery(query.id);
 });
 
-bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
+bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
 
   const movieId = match?.[1] || null;
