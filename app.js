@@ -229,10 +229,15 @@ function escapeMD(text) {
     .replace(/([_*[\]()~`>#+\-=|{}.!])/g, '\\$1') || "";
 }
 
+
+// /users komandasi
 bot.onText(/\/users/, async (msg) => {
-  if (msg.chat.id === admin) sendUsersPage(msg.chat.id, 0);
+  if (msg.chat.id === admin) {
+    sendUsersPage(msg.chat.id, 0);
+  }
 });
 
+// Callback query
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const messageId = query.message.message_id;
@@ -245,12 +250,17 @@ bot.on("callback_query", async (query) => {
   }
 });
 
-// USERS PAGE
+// ESCAPE for MarkdownV2
+function escapeMD(str = "") {
+  return str.replace(/([_*\[\]()~`>#+\-=|{}.!])/g, "\\$1");
+}
+
+// USERS PAGE function
 async function sendUsersPage(chatId, pageIndex, messageId = null) {
   const { count, rows } = await Users.findAndCountAll({
     order: [["id", "ASC"]],
     offset: pageIndex * USERS_PAGE_SIZE,
-    limit: USERS_PAGE_SIZE
+    limit: USERS_PAGE_SIZE,
   });
 
   const totalPages = Math.ceil(count / USERS_PAGE_SIZE);
@@ -264,29 +274,38 @@ Sahifa: *${pageIndex + 1}/${totalPages}*
   rows.forEach((u, i) => {
     const index = pageIndex * USERS_PAGE_SIZE + i + 1;
 
-    text += `*${index}.* ID: \`${escapeMD(u.chatId)}\`\n`;
-    if (u.firstName) text += `👤 ${escapeMD(u.firstName)}\n`;
-    if (u.username) text += `📛 @${escapeMD(u.username)}\n`;
-    text += `--------------------------\n`;
+    text += `*${index}\\.*
+ID: \`${escapeMD(u.chatId)}\`
+`;
+
+    if (u.firstName)
+      text += `👤 ${escapeMD(u.firstName)}\n`;
+
+    if (u.username)
+      text += `📛 @${escapeMD(u.username)}\n`;
+
+    text += `-----------------------------\n`;
   });
 
+  // Navigation buttons
   const nav = [];
   if (pageIndex > 0)
     nav.push({ text: "⏮ Oldingi", callback_data: `users_page:${pageIndex - 1}` });
+
   if (pageIndex < totalPages - 1)
     nav.push({ text: "⏭ Keyingi", callback_data: `users_page:${pageIndex + 1}` });
 
-  const opts = {
+  let options = {
     chat_id: chatId,
-    message_id: messageId,
     parse_mode: "MarkdownV2",
-    reply_markup: { inline_keyboard: nav.length ? [nav] : [] }
+    reply_markup: { inline_keyboard: nav.length ? [nav] : [] },
   };
 
   if (messageId) {
-    bot.editMessageText(text, opts);
+    options.message_id = messageId;
+    await bot.editMessageText(text, options);
   } else {
-    bot.sendMessage(chatId, text, opts);
+    await bot.sendMessage(chatId, text, options);
   }
 }
 
