@@ -486,6 +486,7 @@ background: #F6EBD9;
                 gap: 5px;
                 & img {
                     border-radius: 7px;
+                    min-height: 350px;
                     height: max-content;
                     width: 100%;
                     object-fit: cover;
@@ -504,7 +505,7 @@ background: #F6EBD9;
 
                     & h2 {
                         color: white;
-                        font-size: 20px;
+                        font-size: 14px;
                     }
                 }
             }
@@ -558,6 +559,7 @@ background: #F6EBD9;
                 gap: 5px;
                 & img {
                     border-radius: 7px;
+                    min-height: 350px;
                     height: max-content;
                     width: 100%;
                     object-fit: cover;

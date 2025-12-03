@@ -774,6 +774,7 @@
   }
   .movies .box a img {
     border-radius: 7px;
+    min-height: 350px;
     height: max-content;
     width: 100%;
     object-fit: cover;
@@ -790,7 +791,7 @@
   }
   .movies .box a div h2 {
     color: white;
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 @media only screen and (min-width: 1800px) {
@@ -834,6 +835,7 @@
   }
   .movies .box a img {
     border-radius: 7px;
+    min-height: 350px;
     height: max-content;
     width: 100%;
     object-fit: cover;
