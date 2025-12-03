@@ -266,33 +266,34 @@ async function sendUsersPage(chatId, pageIndex, messageId = null) {
 
     const totalPages = Math.ceil(count / USERS_PAGE_SIZE);
 
-    let text = `👥 *Foydalanuvchilar ro‘yxati*\n`;
-    text += `Jami: *${count} ta*\n`;
-    text += `Sahifa: *${pageIndex + 1}/${totalPages}*\n\n`;
+    let text = `<b>👥 Foydalanuvchilar ro‘yxati</b>\n`;
+    text += `Jami: <b>${count} ta</b>\n`;
+    text += `Sahifa: <b>${pageIndex + 1}/${totalPages}</b>\n\n`;
 
     rows.forEach((u, i) => {
       const index = pageIndex * USERS_PAGE_SIZE + i + 1;
 
-      text += `*${index}\\.\\* ID: \`${escapeMD(u.chatId)}\`\n`;
+      text += `<b>${index}.</b> ID: <code>${u.chatId}</code>\n`;
 
       if (u.firstName)
-        text += `👤 ${escapeMD(u.firstName)}\n`;
+        text += `👤 ${u.firstName}\n`;
 
       if (u.username)
-        text += `📛 @${escapeMD(u.username)}\n`;
+        text += `📛 @${u.username}\n`;
 
-      text += `\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\n`;
+      text += `------------------------------\n`;
     });
 
     const nav = [];
     if (pageIndex > 0)
       nav.push({ text: "⏮ Oldingi", callback_data: `users_page:${pageIndex - 1}` });
+
     if (pageIndex < totalPages - 1)
       nav.push({ text: "⏭ Keyingi", callback_data: `users_page:${pageIndex + 1}` });
 
     const opts = {
       chat_id: chatId,
-      parse_mode: "MarkdownV2",
+      parse_mode: "HTML",
       reply_markup: { inline_keyboard: nav.length ? [nav] : [] },
     };
 
@@ -307,6 +308,7 @@ async function sendUsersPage(chatId, pageIndex, messageId = null) {
     console.error("❌ USERS PAGE ERROR:", err.response?.body || err);
   }
 }
+
 
 
 
