@@ -119,33 +119,62 @@ bot.on("callback_query", async (query) => {
 
 bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
-  const text = match?.[1];
+  const textRaw = match?.[1];                         // encoded bo'lishi mumkin (%D0%A5%D0%B8...)
+  const text = textRaw ? decodeURIComponent(textRaw) : null;  // 🔥 decode qildik
 
-  const keyboard = { reply_markup: { keyboard: [["🎬 Жанры", "📅 Год"]], resize_keyboard: true } };
+  const keyboard = { 
+    reply_markup: { 
+      keyboard: [["🎬 Жанры", "📅 Год"]], 
+      resize_keyboard: true 
+    } 
+  };
 
   await Users.findOrCreate({
     where: { chatId },
-    defaults: { username: msg.chat.username || null, firstName: msg.chat.first_name || null, lastName: msg.chat.last_name || null }
+    defaults: {
+      username: msg.chat.username || null,
+      firstName: msg.chat.first_name || null,
+      lastName: msg.chat.last_name || null
+    }
   });
 
-  // Film nomi kiritilgan bo‘lsa qidirish
+  // Agar start parametri orqali film nomi kelgan bo'lsa
   if (text) {
     try {
-      const movie = await Movie.findOne({ where: { film: text } });
+      console.log("Decoded film name:", text); // tekshirish uchun
+
+      const movie = await Movie.findOne({
+        where: { film: text }
+      });
+
       if (movie) {
         const info = `🎬 Фильм: ${movie.film}\n📌 Жанр: ${movie.janr}\n📅 Год: ${movie.yil}`;
-        if (movie.type === "video") await bot.sendVideo(chatId, movie.file_id, { caption: info });
-        else if (movie.type === "document") await bot.sendDocument(chatId, movie.file_id, { caption: info });
-        else if (movie.type === "animation") await bot.sendAnimation(chatId, movie.file_id, { caption: info });
-        else await bot.copyMessage(chatId, CHANNEL_ID, movie.message_id);
+
+        if (movie.type === "video") {
+          await bot.sendVideo(chatId, movie.file_id, { caption: info });
+        } else if (movie.type === "document") {
+          await bot.sendDocument(chatId, movie.file_id, { caption: info });
+        } else if (movie.type === "animation") {
+          await bot.sendAnimation(chatId, movie.file_id, { caption: info });
+        } else {
+          await bot.copyMessage(chatId, CHANNEL_ID, movie.message_id);
+        }
       } else {
         await bot.sendMessage(chatId, "❌ Фильм не найден.", keyboard);
       }
-    } catch (err) { console.error(err); await bot.sendMessage(chatId, "Произошла ошибка."); }
+    } catch (err) {
+      console.error(err);
+      await bot.sendMessage(chatId, "Произошла ошибка.");
+    }
   } else {
-    await bot.sendMessage(chatId, "Напишите название любого фильма или воспользуйтесь кнопками, чтобы посмотреть список фильмов по жанру или году.", keyboard);
+    await bot.sendMessage(
+      chatId,
+      "Напишите название любого фильма или воспользуйтесь кнопками, чтобы посмотреть список фильмов по жанру или году.",
+      keyboard
+    );
   }
 });
+
 
 // ====================== CHANNEL POST (FILM & THUMB) ======================
 let lastMovieId = null;
