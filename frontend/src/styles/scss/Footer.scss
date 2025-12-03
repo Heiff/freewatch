@@ -1,4 +1,5 @@
-.footer {
+@media only screen and (min-width:400px){
+    .footer {
     background: #123243;
     height: 600px;
 
@@ -29,7 +30,7 @@
 
             & img {
                 border-radius: 7px;
-                height: 300px;
+                height: max-content;
                 width: 100%;
                 object-fit: cover;
             }
@@ -71,4 +72,5 @@
             }
         }
     }
+}
 }
