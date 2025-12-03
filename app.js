@@ -35,7 +35,7 @@ const bot = new TelegramBot(TOKEN, { polling: true });
 const bootstrap = async () => {
   await sequelize.authenticate({ logging: false });
   await sequelize.sync({ alter: true, logging: false });
-  app.listen(8000, () => console.log(`Server listening on 8000`));
+  app.listen(8000, "0.0.0.0",() => console.log(`Server listening on 8000`));
 };
 
 bootstrap();
