@@ -121,7 +121,8 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
   const textRaw = match?.[1];                         // encoded bo'lishi mumkin (%D0%A5%D0%B8...)
   const text = textRaw ? decodeURIComponent(textRaw) : null;  // 🔥 decode qildik
-
+  console.log(text);
+  
   const keyboard = { 
     reply_markup: { 
       keyboard: [["🎬 Жанры", "📅 Год"]], 
