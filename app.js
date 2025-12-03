@@ -119,17 +119,19 @@ bot.on("callback_query", async (query) => {
 
 bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
-  const textRaw = match?.[1];                         // encoded bo'lishi mumkin (%D0%A5%D0%B8...)
-  const text = textRaw ? decodeURIComponent(textRaw) : null;  // 🔥 decode qildik
-  console.log(text);
-  
+
+  // Start parametr (movieId)
+  const movieId = match?.[1] || null;
+  console.log("Start param:", movieId);
+
   const keyboard = { 
     reply_markup: { 
-      keyboard: [["🎬 Жанры", "📅 Год"]], 
+      keyboard: [["🎬 Жанры", "📅 Год"]],
       resize_keyboard: true 
-    } 
+    }
   };
 
+  // Userni ro'yxatdan o'tkazish
   await Users.findOrCreate({
     where: { chatId },
     defaults: {
@@ -139,13 +141,11 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
     }
   });
 
-  // Agar start parametri orqali film nomi kelgan bo'lsa
-  if (text) {
+  // Agar start orqali movie ID kelgan bo‘lsa
+  if (movieId) {
     try {
-      console.log("Decoded film name:", text); // tekshirish uchun
-
       const movie = await Movie.findOne({
-        where: { film: text }
+        where: { id: movieId }
       });
 
       if (movie) {
@@ -163,18 +163,23 @@ bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
       } else {
         await bot.sendMessage(chatId, "❌ Фильм не найден.", keyboard);
       }
+
     } catch (err) {
       console.error(err);
       await bot.sendMessage(chatId, "Произошла ошибка.");
     }
-  } else {
-    await bot.sendMessage(
-      chatId,
-      "Напишите название любого фильма или воспользуйтесь кнопками, чтобы посмотреть список фильмов по жанру или году.",
-      keyboard
-    );
+
+    return; // boshlanishdagi xabar yuborilmaydi
   }
+
+  // Agar start param yo‘q bo‘lsa
+  await bot.sendMessage(
+    chatId,
+    "Напишите название любого фильма или воспользуйтесь кнопками, чтобы посмотреть список фильмов по жанру или году.",
+    keyboard
+  );
 });
+
 
 
 // ====================== CHANNEL POST (FILM & THUMB) ======================

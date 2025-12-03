@@ -42,12 +42,12 @@ const Movie = () => {
                     <div className='cards' key={index}>
                         <img src={el.thumb_url} alt={el.film} />
                         <div>
-                            <h1>Film: {el.film}</h1>
-                            <h2>Yil: {el.yil}</h2>
-                            <h2>Janr: {el.janr}</h2>
+                            <h1>🎬 Фильм: {el.film}</h1>
+                            <h2>📌 Жанр: {el.janr}</h2>
+                            <h2>📅 Год: {el.yil}</h2>
                             <p>С нашим ботом вы можете смотреть любимые фильмы бесплатно! Никакой рекламы, никаких ограничений — только через Telegram, в любое время и в любом месте. Удобство и свобода просмотра — наш приоритет.</p>
                             <a
-                                href={`https://t.me/moviesfreewatchbot?start=${encodeURIComponent(el.film)}`}
+                                href={`https://t.me/moviesfreewatchbot?start=${index}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="bot-btn"

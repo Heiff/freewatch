@@ -53,7 +53,7 @@ const Movies = () => {
         {/* FILTER */}
         <div className='filter'>
           <div>
-            <label htmlFor="genre">Janrni tanlang:</label>
+            <label htmlFor="genre">Выберите жанр:</label>
           <select id="genre" onChange={(e) => setByJanr(e.target.value)}>
             {uniqueJanrs.map((el,id) => <option key={id} value={el}>{el}</option>)}
             <option value={""}>All</option>
@@ -61,14 +61,14 @@ const Movies = () => {
           </div>
 
           <div>
-            <label htmlFor="year">Yilni tanlang:</label>
+            <label htmlFor="year">Выберите год:</label>
             <select id="year" onChange={(e) => setByYear(e.target.value)}>
             {sortedYears.map((el,id) => <option key={id} value={el}>{el}</option>)}
             <option value={""}>All</option>
           </select>
           </div>
 
-          <button onClick={handleFilter}>Press</button>
+          <button onClick={handleFilter}>Фильтр</button>
         </div>
 
         {/* MOVIES LIST */}
@@ -79,8 +79,8 @@ const Movies = () => {
               
               <img src={el.thumb_url} fetchpriority="high" alt={el.film}/>
               <div>
-                <h2>Yil: {el.yil}</h2>
-                <h2>Janr: {el.janr}</h2>
+                <h2>📅 Год: {el.yil}</h2>
+                <h2>📌 Жанр: {el.janr}</h2>
               </div>
             </Link>
           ))}
@@ -92,7 +92,7 @@ const Movies = () => {
             onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
           >
-            Prev
+            Предыдущая
           </button>
 
           <span>{currentPage} / {totalPages}</span>
@@ -101,7 +101,7 @@ const Movies = () => {
             onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
             disabled={currentPage === totalPages}
           >
-            Next
+            Следующая
           </button>
         </div>
       </div>
