@@ -17,7 +17,7 @@
   .footer .cards a {
     position: relative;
     min-width: 250px;
-    height: max-content;
+    height: 425px;
     background: #222;
     color: #fff;
     border-radius: 12px;
@@ -45,7 +45,7 @@
   }
   .footer .cards a div p {
     color: white;
-    font-size: 20px;
+    font-size: 14px;
   }
   .footer .cards a:hover {
     background: #F6EBD9;
@@ -239,7 +239,7 @@
   }
   .home .movie .cards a div p {
     color: white;
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 @media only screen and (min-width: 1000px) {
@@ -458,7 +458,7 @@
     font-size: 20px;
   }
   .movie-page .box .cards div p {
-    font-size: 16px;
+    font-size: 18px;
     color: #123243;
   }
 }
@@ -727,7 +727,7 @@
   }
   .movies .box a div h2 {
     color: white;
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 @media only screen and (min-width: 1400px) {
