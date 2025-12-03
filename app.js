@@ -222,39 +222,74 @@ bot.on("channel_post", async (msg) => {
 });
 
 // ====================== GEN USERS PAGE ======================
-bot.onText(/\/users/, async (msg) => { if (msg.chat.id === admin) sendUsersPage(msg.chat.id, 0); });
+// Escape function (MarkdownV2 uchun)
+function escapeMD(text) {
+  return text
+    ?.toString()
+    .replace(/([_*[\]()~`>#+\-=|{}.!])/g, '\\$1') || "";
+}
+
+bot.onText(/\/users/, async (msg) => {
+  if (msg.chat.id === admin) sendUsersPage(msg.chat.id, 0);
+});
 
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const messageId = query.message.message_id;
   const data = query.data;
 
-  // USERS PAGE
   if (data.startsWith("users_page:")) {
     const pageIndex = parseInt(data.split(":")[1]);
-    sendUsersPage(chatId, pageIndex, messageId);
+    await sendUsersPage(chatId, pageIndex, messageId);
     return bot.answerCallbackQuery(query.id);
   }
-
-  // JANR/YIL FILM PAGINATION handled below
 });
 
-// Users page function
+// USERS PAGE
 async function sendUsersPage(chatId, pageIndex, messageId = null) {
-  const { count, rows } = await Users.findAndCountAll({ order: [["id", "ASC"]], offset: pageIndex * USERS_PAGE_SIZE, limit: USERS_PAGE_SIZE });
+  const { count, rows } = await Users.findAndCountAll({
+    order: [["id", "ASC"]],
+    offset: pageIndex * USERS_PAGE_SIZE,
+    limit: USERS_PAGE_SIZE
+  });
+
   const totalPages = Math.ceil(count / USERS_PAGE_SIZE);
 
-  let text = `👥 *Foydalanuvchilar ro‘yxati*\nJami: *${count} ta*\nSahifa: *${pageIndex + 1}/${totalPages}*\n\n`;
-  rows.forEach((u,i) => { text += `*${pageIndex*USERS_PAGE_SIZE + i + 1}.* ID: \`${u.chatId}\`\n${u.firstName?`👤 ${u.firstName}\n`:''}${u.username?`📛 @${u.username}\n`:''}--------------------------\n`; });
+  let text = `👥 *Foydalanuvchilar ro‘yxati*  
+Jami: *${count} ta*  
+Sahifa: *${pageIndex + 1}/${totalPages}*  
+
+`;
+
+  rows.forEach((u, i) => {
+    const index = pageIndex * USERS_PAGE_SIZE + i + 1;
+
+    text += `*${index}.* ID: \`${escapeMD(u.chatId)}\`\n`;
+    if (u.firstName) text += `👤 ${escapeMD(u.firstName)}\n`;
+    if (u.username) text += `📛 @${escapeMD(u.username)}\n`;
+    text += `--------------------------\n`;
+  });
 
   const nav = [];
-  if (pageIndex > 0) nav.push({ text: "⏮ Oldingi", callback_data: `users_page:${pageIndex - 1}` });
-  if (pageIndex < totalPages - 1) nav.push({ text: "⏭ Keyingi", callback_data: `users_page:${pageIndex + 1}` });
+  if (pageIndex > 0)
+    nav.push({ text: "⏮ Oldingi", callback_data: `users_page:${pageIndex - 1}` });
+  if (pageIndex < totalPages - 1)
+    nav.push({ text: "⏭ Keyingi", callback_data: `users_page:${pageIndex + 1}` });
 
-  const markup = { reply_markup: { inline_keyboard: nav.length ? [nav] : [] }, parse_mode: "Markdown" };
-  if (messageId) bot.editMessageText(text, { chat_id: chatId, message_id: messageId, ...markup });
-  else bot.sendMessage(chatId, text, markup);
+  const opts = {
+    chat_id: chatId,
+    message_id: messageId,
+    parse_mode: "MarkdownV2",
+    reply_markup: { inline_keyboard: nav.length ? [nav] : [] }
+  };
+
+  if (messageId) {
+    bot.editMessageText(text, opts);
+  } else {
+    bot.sendMessage(chatId, text, opts);
+  }
 }
+
 
 // ====================== PHOTO BROADCAST ======================
 bot.on("photo", async (msg) => {
