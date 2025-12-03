@@ -16,7 +16,7 @@
   }
   .footer .cards a {
     position: relative;
-    min-width: 250px;
+    width: 250px;
     height: 425px;
     background: #222;
     color: #fff;
@@ -29,6 +29,7 @@
   }
   .footer .cards a img {
     border-radius: 7px;
+    min-height: 350px;
     height: max-content;
     width: 100%;
     object-fit: cover;
@@ -223,6 +224,7 @@
   }
   .home .movie .cards a img {
     border-radius: 7px;
+    min-height: 350px;
     height: max-content;
     width: 100%;
     object-fit: cover;
@@ -711,6 +713,7 @@
   }
   .movies .box a img {
     border-radius: 7px;
+    min-height: 350px;
     height: max-content;
     width: 100%;
     object-fit: cover;
