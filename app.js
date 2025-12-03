@@ -266,17 +266,22 @@ async function sendUsersPage(chatId, pageIndex, messageId = null) {
 
     const totalPages = Math.ceil(count / USERS_PAGE_SIZE);
 
-    // Text
     let text = `👥 *Foydalanuvchilar ro‘yxati*\n`;
     text += `Jami: *${count} ta*\n`;
     text += `Sahifa: *${pageIndex + 1}/${totalPages}*\n\n`;
 
     rows.forEach((u, i) => {
       const index = pageIndex * USERS_PAGE_SIZE + i + 1;
-      text += `*${index}.* ID: \`${u.chatId}\`\n`;
-      if (u.firstName) text += `👤 ${u.firstName}\n`;
-      if (u.username) text += `📛 @${u.username}\n`;
-      text += `--------------------------\n`;
+
+      text += `*${index}\\.\\* ID: \`${escapeMD(u.chatId)}\`\n`;
+
+      if (u.firstName)
+        text += `👤 ${escapeMD(u.firstName)}\n`;
+
+      if (u.username)
+        text += `📛 @${escapeMD(u.username)}\n`;
+
+      text += `\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\\-\n`;
     });
 
     const nav = [];
@@ -287,7 +292,7 @@ async function sendUsersPage(chatId, pageIndex, messageId = null) {
 
     const opts = {
       chat_id: chatId,
-      parse_mode: "Markdown",
+      parse_mode: "MarkdownV2",
       reply_markup: { inline_keyboard: nav.length ? [nav] : [] },
     };
 
@@ -302,6 +307,7 @@ async function sendUsersPage(chatId, pageIndex, messageId = null) {
     console.error("❌ USERS PAGE ERROR:", err.response?.body || err);
   }
 }
+
 
 
 
