@@ -1,63 +1,65 @@
-.footer {
-  background: #123243;
-  height: 600px;
+@media only screen and (min-width: 400px) {
+  .footer {
+    background: #123243;
+    height: 600px;
+  }
+  .footer .cards {
+    display: flex;
+    gap: 20px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding: 90px 0 40px 0;
+  }
+  .footer .cards .cards:active {
+    cursor: grabbing;
+  }
+  .footer .cards a {
+    position: relative;
+    min-width: 250px;
+    height: max-content;
+    background: #222;
+    color: #fff;
+    border-radius: 12px;
+    flex-shrink: 0;
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease, z-index 0.5s ease;
+    padding: 10px 15px;
+  }
+  .footer .cards a img {
+    border-radius: 7px;
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+  }
+  .footer .cards a h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    color: white;
+  }
+  .footer .cards a div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer .cards a div p {
+    color: white;
+    font-size: 20px;
+  }
+  .footer .cards a:hover {
+    background: #F6EBD9;
+    transform: scale(1.15) translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
+  .footer .cards a:hover h2 {
+    color: #123243;
+  }
+  .footer .cards a:hover div p {
+    color: #123243;
+  }
 }
-.footer .cards {
-  display: flex;
-  gap: 20px;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-  width: 100%;
-  padding: 90px 0 40px 0;
-}
-.footer .cards .cards:active {
-  cursor: grabbing;
-}
-.footer .cards a {
-  position: relative;
-  min-width: 250px;
-  background: #222;
-  color: #fff;
-  border-radius: 12px;
-  flex-shrink: 0;
-  text-decoration: none;
-  overflow: hidden;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s ease, z-index 0.5s ease;
-  padding: 10px 15px;
-}
-.footer .cards a img {
-  border-radius: 7px;
-  height: 300px;
-  width: 100%;
-  object-fit: cover;
-}
-.footer .cards a h2 {
-  display: flex;
-  justify-content: center;
-  font-size: 26px;
-  color: white;
-}
-.footer .cards a div {
-  display: flex;
-  justify-content: space-between;
-}
-.footer .cards a div p {
-  color: white;
-  font-size: 20px;
-}
-.footer .cards a:hover {
-  background: #F6EBD9;
-  transform: scale(1.15) translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  z-index: 10;
-}
-.footer .cards a:hover h2 {
-  color: #123243;
-}
-.footer .cards a:hover div p {
-  color: #123243;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -173,7 +175,7 @@
   }
   .home .movie .cards a div p {
     color: white;
-    font-size: 20px;
+    font-size: 16px;
   }
   .home .movie .cards a:hover {
     background: #F6EBD9;
@@ -456,7 +458,7 @@
     font-size: 20px;
   }
   .movie-page .box .cards div p {
-    font-size: 18px;
+    font-size: 16px;
     color: #123243;
   }
 }
