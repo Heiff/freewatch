@@ -1,5 +1,3 @@
-
-
 const TelegramBot = require("node-telegram-bot-api");
 const sequelize = require("./database/sequelize");
 const express = require("express");
@@ -14,14 +12,14 @@ const { Sequelize } = require("sequelize");
 
 const app = express();
 
-// ====================== EXPRESS CONFIG ======================
+
 app.use(cors({ origin: "*", methods: ["GET","POST","PUT","DELETE","OPTIONS"], allowedHeaders: ["Content-Type","Authorization"] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 app.use("/api",router);
 
-// ====================== BOT CONFIG ======================
+
 const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
 const CHANNEL_ID = -1003242203360;
 const admin = 7110194543;
@@ -31,7 +29,7 @@ const ITEMS_PER_PAGE = 10;
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-// ====================== BOOTSTRAP ======================
+
 const bootstrap = async () => {
   await sequelize.authenticate({ logging: false });
   await sequelize.sync({ alter: true, logging: false });
@@ -40,7 +38,7 @@ const bootstrap = async () => {
 
 bootstrap();
 
-// ====================== HELPERS ======================
+
 function parseCaption(caption) {
   const data = { film: null, janr: null, yil: null };
   if (!caption) return data;
@@ -55,7 +53,7 @@ function parseCaption(caption) {
   return data;
 }
 
-// ====================== USER MENU ======================
+
 const userMenus = {};
 function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
@@ -120,7 +118,6 @@ bot.on("callback_query", async (query) => {
 bot.onText(/\/start(?: (.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
 
-  // Start parametr (movieId)
   const movieId = match?.[1] || null;
   console.log("Start param:", movieId);
 
