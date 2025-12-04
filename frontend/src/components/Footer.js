@@ -39,8 +39,8 @@ const Footer = () => {
               <h2>{el.film}</h2>
               <img src={el.thumb_url} alt="" />
               <div>
-                <p>Janr: {el.janr}</p>
-                <p>Yil: {el.yil}</p>
+                <p>📌 Жанр: {el.janr}</p>
+                <p>📅 Год: {el.yil}</p>
               </div>
             </Link>
           ))}
