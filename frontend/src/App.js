@@ -5,11 +5,13 @@ import Movies from './components/Movies'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Movie from './components/Movie'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
   return (
     <div>
       <Navbar/>
+      <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/movies' element={<Movies/>}/>

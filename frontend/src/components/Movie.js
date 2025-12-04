@@ -8,6 +8,7 @@ const Movie = () => {
     const { api } = useContext(Context);
     const { id } = useParams();
     const [data, setData] = useState([]);
+    
 
     useEffect(() => {
         const getMovie = async () => {
