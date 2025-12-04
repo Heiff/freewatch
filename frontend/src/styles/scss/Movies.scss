@@ -258,7 +258,7 @@ background: #F6EBD9;
 
                 & img {
                     border-radius: 7px;
-                    height: max-content;
+                    height: 350px;
                     width: 100%;
                     object-fit: cover;
                 }
@@ -272,6 +272,7 @@ background: #F6EBD9;
 
                 & div {
                     display: flex;
+                    flex-direction: column;
                     justify-content: space-between;
 
                     & h2 {
@@ -345,7 +346,7 @@ background: #F6EBD9;
                 gap: 5px;
                 & img {
                     border-radius: 7px;
-                    height: max-content;
+                    height: 350px;
                     width: 100%;
                     object-fit: cover;
                 }
@@ -414,7 +415,7 @@ background: #F6EBD9;
                 & img {
                     border-radius: 7px;
                     min-height: 350px;
-                    height: max-content;
+                    height: 350px;
                     width: 100%;
                     object-fit: cover;
                 }
@@ -487,7 +488,7 @@ background: #F6EBD9;
                 & img {
                     border-radius: 7px;
                     min-height: 350px;
-                    height: max-content;
+                    height: 350px;
                     width: 100%;
                     object-fit: cover;
                 }
@@ -505,7 +506,7 @@ background: #F6EBD9;
 
                     & h2 {
                         color: white;
-                        font-size: 14px;
+                        font-size: 16px;
                     }
                 }
             }
@@ -560,7 +561,7 @@ background: #F6EBD9;
                 & img {
                     border-radius: 7px;
                     min-height: 350px;
-                    height: max-content;
+                    height: 350px;
                     width: 100%;
                     object-fit: cover;
                 }
@@ -578,7 +579,7 @@ background: #F6EBD9;
 
                     & h2 {
                         color: white;
-                        font-size: 20px;
+                        font-size: 16px;
                     }
                 }
             }
