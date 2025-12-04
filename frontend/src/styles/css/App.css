@@ -160,7 +160,7 @@
   }
   .home .movie .cards a img {
     border-radius: 7px;
-    height: max-content;
+    height: 350px;
     width: 100%;
     object-fit: cover;
   }
@@ -172,7 +172,7 @@
   }
   .home .movie .cards a div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
   }
   .home .movie .cards a div p {
@@ -226,7 +226,7 @@
   .home .movie .cards a img {
     border-radius: 7px;
     min-height: 350px;
-    height: max-content;
+    height: 350px;
     width: 100%;
     object-fit: cover;
   }
