@@ -592,7 +592,7 @@
   }
   .movies .box a div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
   }
   .movies .box a div h2 {
