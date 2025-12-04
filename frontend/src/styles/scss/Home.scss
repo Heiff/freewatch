@@ -122,11 +122,12 @@
 
                 & div {
                     display: flex;
+                    flex-direction: column;
                     justify-content: space-between;
 
                     & p {
                         color: white;
-                        font-size: 16px;
+                        font-size: 18px;
                     }
                 }
             }
@@ -217,16 +218,6 @@
                     justify-content: center;
                     font-size: 26px;
                     color: white;
-                }
-
-                & div {
-                    display: flex;
-                    justify-content: space-between;
-
-                    & p {
-                        color: white;
-                        font-size: 14px;
-                    }
                 }
             }
         }
