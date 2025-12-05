@@ -34,7 +34,7 @@ const Footer = () => {
     <div className="footer">
       <div className="container">
         <div className="cards" ref={sliderRef}>
-          {data.map((el) => (
+          {data.slice(10,20).reverse().map((el) => (
             <Link to={`/movie/${el.id}`} key={el.id} className="card-item">
               <h2>{el.film}</h2>
               <img src={el.thumb_url} alt="" />

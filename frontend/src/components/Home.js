@@ -33,7 +33,7 @@ const Home = () => {
                 <h1>Фильмы</h1>
                 <div className='cards'>
                     {
-                        data.slice(0,10).map(el =>{
+                        data.slice(0,10).reverse().map(el =>{
                             console.log(el);
                             
                             return(
