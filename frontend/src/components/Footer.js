@@ -34,16 +34,18 @@ const Footer = () => {
     <div className="footer">
       <div className="container">
         <div className="cards" ref={sliderRef}>
-          {data.slice(10,20).reverse().map((el) => (
-            <Link to={`/movie/${el.id}`} key={el.id} className="card-item">
-              <h2>{el.film}</h2>
-              <img src={el.thumb_url} alt="" />
-              <div>
-                <p>📌 Жанр: {el.janr}</p>
-                <p>📅 Год: {el.yil}</p>
-              </div>
-            </Link>
-          ))}
+          {data.slice(10,20).reverse().map((el) => {
+            return (
+              <Link to={`/movie/${el.id}`} key={el.id} className="card-item">
+                <h2>{el.film}</h2>
+                <img src={el.thumb_url} alt="" />
+                <div>
+                  <p>📌 Жанр: {el.janr}</p>
+                  <p>📅 Год: {el.yil}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </div>
