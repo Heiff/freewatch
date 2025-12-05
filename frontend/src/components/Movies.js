@@ -8,7 +8,7 @@ const Movies = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // har page-da 6 ta film
+  const itemsPerPage = 12; // har page-da 6 ta film
   const uniqueJanrs = [...new Set(data.map(el => el.janr))];
   const uniqueYears = [...new Set(data.map(el => el.yil))];
   const sortedYears = uniqueYears.sort((a, b) => a - b)
