@@ -24,6 +24,7 @@ const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
 const CHANNEL_ID = -1003242203360;
 const admin = 7110194543;
 const USERS_PAGE_SIZE = 10;
+let MOVIES_CACHE = [];
 const PAGE_SIZE = 5;
 const ITEMS_PER_PAGE = 10;
 
@@ -55,88 +56,63 @@ function parseCaption(caption) {
 
 
 const userMenus = {};
-function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
+function sendMoviePage(chatId, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
-  const pageMovies = movies.slice(start, start + PAGE_SIZE);
+  const pageMovies = MOVIES_CACHE.slice(start, start + PAGE_SIZE);
 
-  const keyboard = pageMovies.map(m => [{
-    text: `🎬 ${m.film} | 📌 ${m.janr} | 📅 ${m.yil}`,
-    callback_data: `movie:${m.id}` // 🔥 ID yuboramiz
+  const keyboard = pageMovies.map((m, i) => [{
+    text: `🎬 ${m.film} | 📅 ${m.yil}`,
+    callback_data: `movie:${start + i}` // 🔥 STABLE INDEX
   }]);
 
-  const totalPages = Math.ceil(movies.length / PAGE_SIZE);
+  const totalPages = Math.ceil(MOVIES_CACHE.length / PAGE_SIZE);
 
-  const navButtons = [];
+  const nav = [];
   if (pageIndex > 0)
-    navButtons.push({ text: "⏮ Предыдущая", callback_data: `page:${pageIndex - 1}` });
-
+    nav.push({ text: "⏮", callback_data: `page:${pageIndex - 1}` });
   if (pageIndex < totalPages - 1)
-    navButtons.push({ text: "⏭ Следующая", callback_data: `page:${pageIndex + 1}` });
+    nav.push({ text: "⏭", callback_data: `page:${pageIndex + 1}` });
 
-  if (navButtons.length) keyboard.push(navButtons);
-
-  const text = `🎬 *Список фильмов*\nСтраница: ${pageIndex + 1}/${totalPages}`;
+  if (nav.length) keyboard.push(nav);
 
   const options = {
-    chat_id: chatId,
-    parse_mode: "Markdown",
     reply_markup: { inline_keyboard: keyboard }
   };
 
   if (messageId) {
-    options.message_id = messageId;
-    bot.editMessageText(text, options);
+    bot.editMessageText(
+      `🎬 Список фильмов\nСтраница ${pageIndex + 1}/${totalPages}`,
+      { chat_id: chatId, message_id: messageId, ...options }
+    );
   } else {
-    bot.sendMessage(chatId, text, options);
+    bot.sendMessage(
+      chatId,
+      `🎬 Список фильмов\nСтраница ${pageIndex + 1}/${totalPages}`,
+      options
+    );
   }
 }
+
 
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const messageId = query.message.message_id;
   const [action, value] = query.data.split(":");
 
-  try {
-    // 🔥 ENG MUHIM QATOR
-    const movies = await Movie.findAll({
-      order: [['id', 'DESC']], // oxirgi qo‘shilgan birinchi
-    });
+  if (action === "page") {
+    sendMoviePage(chatId, Number(value), messageId);
+  }
 
-    // 📄 Sahifa almashish
-    if (action === "page") {
-      sendMoviePage(chatId, movies, parseInt(value), messageId);
-    }
+  if (action === "movie") {
+    const movie = MOVIES_CACHE[Number(value)];
+    if (!movie) return;
 
-    // 🎬 Film tanlanganda
-    if (action === "movie") {
-      const movieId = parseInt(value);
+    const text =
+      `🎬 ${movie.film}\n` +
+      `📌 ${movie.janr}\n` +
+      `📅 ${movie.yil}`;
 
-      const movie = movies.find(m => m.id === movieId);
-      if (!movie) return;
-
-      const info =
-        `🎬 *Фильм:* ${movie.film}\n` +
-        `📌 *Жанр:* ${movie.janr}\n` +
-        `📅 *Год:* ${movie.yil}`;
-
-      if (movie.file_id) {
-        if (movie.type === "video")
-          bot.sendVideo(chatId, movie.file_id, { caption: info, parse_mode: "Markdown" });
-
-        else if (movie.type === "document")
-          bot.sendDocument(chatId, movie.file_id, { caption: info, parse_mode: "Markdown" });
-
-        else if (movie.type === "animation")
-          bot.sendAnimation(chatId, movie.file_id, { caption: info, parse_mode: "Markdown" });
-
-      } else {
-        bot.copyMessage(chatId, CHANNEL_ID, movie.message_id);
-      }
-    }
-
-  } catch (err) {
-    console.error(err);
-    bot.sendMessage(chatId, "❌ Произошла ошибка.");
+    bot.sendMessage(chatId, text);
   }
 
   bot.answerCallbackQuery(query.id);
@@ -147,7 +123,9 @@ bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
 
   const movieId = match?.[1] || null;
-  console.log("Start param:", movieId);
+   MOVIES_CACHE = await Movie.findAll({
+    order: [['id', 'DESC']], // 🔥 oxirgi film birinchi
+  });
 
   const keyboard = { 
     reply_markup: { 
