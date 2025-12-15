@@ -88,6 +88,7 @@ bot.on("callback_query", async (query) => {
 
   try {
     const movies = await Movie.findAll({ order: [['id', 'DESC']] });
+    movies.sort((a,b) => b.id - a.id)
 
     if (action === "page") {
       sendMoviePage(chatId, movies, parseInt(value), messageId);
