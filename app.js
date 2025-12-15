@@ -57,8 +57,7 @@ function parseCaption(caption) {
 const userMenus = {};
 function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
-  const pageMovies = movies.slice(start, start + PAGE_SIZE);
-  pageMovies.sort((a,b) => b.id - a.id);
+  const pageMovies = movies.slice(start, start + PAGE_SIZE).reverse();
   console.log(pageMovies[0]);
   
   // Inline keyboard
@@ -91,7 +90,6 @@ bot.on("callback_query", async (query) => {
   try {
     const movies = await Movie.findAll({ order: [['id', 'DESC']] });
     movies.sort((a,b) => b.id - a.id);
-    console.log(movies[0]);
     
 
     if (action === "page") {
