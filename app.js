@@ -87,7 +87,7 @@ bot.on("callback_query", async (query) => {
   const [action, value] = query.data.split(":");
 
   try {
-    const movies = await Movie.findAll({ order: [["film", "ASC"]] });
+    const movies = await Movie.findAll({ order: [["film", "DESC"]] });
 
     if (action === "page") {
       sendMoviePage(chatId, movies, parseInt(value), messageId);
@@ -259,7 +259,7 @@ function escapeMD(str = "") {
 async function sendUsersPage(chatId, pageIndex, messageId = null) {
   try {
     const { count, rows } = await Users.findAndCountAll({
-      order: [["id", "ASC"]],
+      order: [["id", "DESC"]],
       offset: pageIndex * USERS_PAGE_SIZE,
       limit: USERS_PAGE_SIZE,
     });
@@ -338,7 +338,12 @@ bot.on("message", async (msg) => {
   }
 
   if (text === "📅 Год") {
-    const yillar = await Movie.findAll({ attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('yil')), 'yil']] });
+    const yillar = await Movie.findAll({
+  attributes: [
+    [Sequelize.fn('DISTINCT', Sequelize.col('yil')), 'yil']
+  ],
+  order: [[Sequelize.col('yil'), 'ASC']],
+});
     const inlineKeyboard = yillar.map(y => y.yil).filter(Boolean).map(y => [{ text: y, callback_data: `YIL_${y}_1` }]);
     return bot.sendMessage(chatId, "Выберите год:", { reply_markup: { inline_keyboard: inlineKeyboard } });
   }
