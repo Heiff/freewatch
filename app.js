@@ -87,9 +87,9 @@ bot.on("callback_query", async (query) => {
   const [action, value] = query.data.split(":");
 
   try {
-    const movies = await Movie.findAll({
+ const movies = await Movie.findAll({
   order: [
-    [Sequelize.literal('film COLLATE "C"'), 'DESC'],
+    [Sequelize.fn('LOWER', Sequelize.col('film')), 'DESC'],
   ],
 });
 
