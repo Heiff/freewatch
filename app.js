@@ -380,7 +380,7 @@ bot.on("callback_query", async (query) => {
     const pageNum = Math.max(1, parseInt(parts[2] || "1"));
 
     const where = isJanr ? { janr: value } : { yil: value };
-    const films = await Movie.findAll({ where });
+    const films = await Movie.findAll({ where,order: [['id', 'DESC']] });
     if (!films.length) {
       return bot.editMessageText(`❌ ${value} Фильмов по выбранному критерию не найдено.`, { chat_id: chatId, message_id: messageId });
     }
