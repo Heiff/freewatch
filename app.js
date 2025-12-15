@@ -59,6 +59,8 @@ function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
   const pageMovies = movies.slice(start, start + PAGE_SIZE);
   pageMovies.sort((a,b) => b.id - a.id);
+  console.log(pageMovies[0]);
+  
   // Inline keyboard
   const keyboard = pageMovies.map((m, i) => [{
     text: `🎬${m.film} | 📌${m.janr} | 📅${m.yil}`,
