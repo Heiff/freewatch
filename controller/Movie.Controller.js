@@ -2,7 +2,7 @@ const Movie = require("../models/Movie")
 
 const GetAll = async(req,res) =>{
     try {
-        const data = await Movie.findAll();
+        const data = await Movie.findAll({order: [['id', 'DESC']] });
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json(error.message)
