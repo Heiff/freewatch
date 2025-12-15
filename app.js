@@ -57,11 +57,11 @@ function parseCaption(caption) {
 const userMenus = {};
 function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
-  const pageMovies = movies.slice(start, start + PAGE_SIZE).reverse();
-  console.log(pageMovies[0]);
+  const pageMovies = movies.slice(start, start + PAGE_SIZE);
+  
   
   // Inline keyboard
-  const keyboard = pageMovies.map((m, i) => [{
+  const keyboard = pageMovies.reverse().map((m, i) => [{
     text: `🎬${m.film} | 📌${m.janr} | 📅${m.yil}`,
     callback_data: `movie:${start + i}`
   }]);
