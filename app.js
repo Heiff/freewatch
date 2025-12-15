@@ -87,8 +87,7 @@ bot.on("callback_query", async (query) => {
   const [action, value] = query.data.split(":");
 
   try {
-    const movies = await Movie.findAll({ order: [["film", "ASC"]] });
-    movies.reverse();
+    const movies = await Movie.findAll({ order: [['film', 'DESC']] });
 
     if (action === "page") {
       sendMoviePage(chatId, movies, parseInt(value), messageId);
