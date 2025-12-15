@@ -24,7 +24,6 @@ const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
 const CHANNEL_ID = -1003242203360;
 const admin = 7110194543;
 const USERS_PAGE_SIZE = 10;
-let MOVIES_CACHE = [];
 const PAGE_SIZE = 5;
 const ITEMS_PER_PAGE = 10;
 
@@ -56,76 +55,74 @@ function parseCaption(caption) {
 
 
 const userMenus = {};
-function sendMoviePage(chatId, pageIndex, messageId = null) {
+function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
-  const pageMovies = MOVIES_CACHE.slice(start, start + PAGE_SIZE);
-
+  const pageMovies = movies.slice(start, start + PAGE_SIZE);
+  pageMovies.sort((a,b) => b.id - a.id);
+  // Inline keyboard
   const keyboard = pageMovies.map((m, i) => [{
-    text: `🎬 ${m.film} | 📅 ${m.yil}`,
-    callback_data: `movie:${start + i}` // 🔥 STABLE INDEX
+    text: `🎬${m.film} | 📌${m.janr} | 📅${m.yil}`,
+    callback_data: `movie:${start + i}`
   }]);
 
-  const totalPages = Math.ceil(MOVIES_CACHE.length / PAGE_SIZE);
+  const totalPages = Math.ceil(movies.length / PAGE_SIZE);
+  const navButtons = [];
+  if (pageIndex > 0) navButtons.push({ text: "⏮ Предыдущая", callback_data: `page:${pageIndex - 1}` });
+  if (pageIndex < totalPages - 1) navButtons.push({ text: "⏭ Следующая", callback_data: `page:${pageIndex + 1}` });
+  if (navButtons.length) keyboard.push(navButtons);
 
-  const nav = [];
-  if (pageIndex > 0)
-    nav.push({ text: "⏮", callback_data: `page:${pageIndex - 1}` });
-  if (pageIndex < totalPages - 1)
-    nav.push({ text: "⏭", callback_data: `page:${pageIndex + 1}` });
+  const text = `🎬 Список фильмов\nСтраница: ${pageIndex + 1}/${totalPages}`;
 
-  if (nav.length) keyboard.push(nav);
+  const options = { chat_id: chatId, reply_markup: { inline_keyboard: keyboard } };
+  if (messageId) options.message_id = messageId;
 
-  const options = {
-    reply_markup: { inline_keyboard: keyboard }
-  };
-
-  if (messageId) {
-    bot.editMessageText(
-      `🎬 Список фильмов\nСтраница ${pageIndex + 1}/${totalPages}`,
-      { chat_id: chatId, message_id: messageId, ...options }
-    );
-  } else {
-    bot.sendMessage(
-      chatId,
-      `🎬 Список фильмов\nСтраница ${pageIndex + 1}/${totalPages}`,
-      options
-    );
-  }
+  if (messageId) bot.editMessageText(text, options);
+  else bot.sendMessage(chatId, text, options);
 }
 
-
+// callback_query ichida
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const messageId = query.message.message_id;
   const [action, value] = query.data.split(":");
 
-  if (action === "page") {
-    sendMoviePage(chatId, Number(value), messageId);
-  }
+  try {
+    const movies = await Movie.findAll({ order: [['id', 'DESC']] });
+    movies.sort((a,b) => b.id - a.id);
+    console.log(movies[0]);
+    
 
-  if (action === "movie") {
-    const movie = MOVIES_CACHE[Number(value)];
-    if (!movie) return;
+    if (action === "page") {
+      sendMoviePage(chatId, movies, parseInt(value), messageId);
+    }
 
-    const text =
-      `🎬 ${movie.film}\n` +
-      `📌 ${movie.janr}\n` +
-      `📅 ${movie.yil}`;
+    if (action === "movie") {
+      const movie = movies[parseInt(value)];
+      if (!movie) return;
 
-    bot.sendMessage(chatId, text);
+      const info = `🎬 Фильм: ${movie.film}\n📌 Жанр: ${movie.janr}\n📅 Год: ${movie.yil}`;
+      if (movie.file_id) {
+        if (movie.type === "video") bot.sendVideo(chatId, movie.file_id, { caption: info });
+        else if (movie.type === "document") bot.sendDocument(chatId, movie.file_id, { caption: info });
+        else if (movie.type === "animation") bot.sendAnimation(chatId, movie.file_id, { caption: info });
+      } else {
+        bot.copyMessage(chatId, CHANNEL_ID, movie.message_id);
+      }
+    }
+
+  } catch (err) {
+    console.error(err);
+    bot.sendMessage(chatId, "Произошла ошибка.");
   }
 
   bot.answerCallbackQuery(query.id);
 });
 
-
 bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
 
   const movieId = match?.[1] || null;
-   MOVIES_CACHE = await Movie.findAll({
-    order: [['id', 'DESC']], // 🔥 oxirgi film birinchi
-  });
+  console.log("Start param:", movieId);
 
   const keyboard = { 
     reply_markup: { 
