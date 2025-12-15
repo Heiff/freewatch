@@ -61,7 +61,7 @@ function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   
   
   // Inline keyboard
-  const keyboard = pageMovies.reverse().map((m, i) => [{
+  const keyboard = pageMovies.map((m, i) => [{
     text: `🎬${m.film} | 📌${m.janr} | 📅${m.yil}`,
     callback_data: `movie:${start + i}`
   }]);
@@ -89,7 +89,7 @@ bot.on("callback_query", async (query) => {
 
   try {
     const movies = await Movie.findAll({ order: [['id', 'DESC']] });
-    movies.sort((a,b) => b.id - a.id);
+    
     
 
     if (action === "page") {
