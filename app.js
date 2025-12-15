@@ -87,7 +87,11 @@ bot.on("callback_query", async (query) => {
   const [action, value] = query.data.split(":");
 
   try {
-    const movies = await Movie.findAll({ order: [['film', 'DESC']] });
+    const movies = await Movie.findAll({
+  order: [
+    [Sequelize.literal('film COLLATE "C"'), 'DESC'],
+  ],
+});
 
     if (action === "page") {
       sendMoviePage(chatId, movies, parseInt(value), messageId);
