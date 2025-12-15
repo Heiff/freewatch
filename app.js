@@ -59,52 +59,76 @@ function sendMoviePage(chatId, movies, pageIndex, messageId = null) {
   const start = pageIndex * PAGE_SIZE;
   const pageMovies = movies.slice(start, start + PAGE_SIZE);
 
-  // Inline keyboard
-  const keyboard = pageMovies.map((m, i) => [{
-    text: `🎬${m.film} | 📌${m.janr} | 📅${m.yil}`,
-    callback_data: `movie:${start + i}`
+  const keyboard = pageMovies.map(m => [{
+    text: `🎬 ${m.film} | 📌 ${m.janr} | 📅 ${m.yil}`,
+    callback_data: `movie:${m.id}` // 🔥 ID yuboramiz
   }]);
 
   const totalPages = Math.ceil(movies.length / PAGE_SIZE);
+
   const navButtons = [];
-  if (pageIndex > 0) navButtons.push({ text: "⏮ Предыдущая", callback_data: `page:${pageIndex - 1}` });
-  if (pageIndex < totalPages - 1) navButtons.push({ text: "⏭ Следующая", callback_data: `page:${pageIndex + 1}` });
+  if (pageIndex > 0)
+    navButtons.push({ text: "⏮ Предыдущая", callback_data: `page:${pageIndex - 1}` });
+
+  if (pageIndex < totalPages - 1)
+    navButtons.push({ text: "⏭ Следующая", callback_data: `page:${pageIndex + 1}` });
+
   if (navButtons.length) keyboard.push(navButtons);
 
-  const text = `🎬 Список фильмов\nСтраница: ${pageIndex + 1}/${totalPages}`;
+  const text = `🎬 *Список фильмов*\nСтраница: ${pageIndex + 1}/${totalPages}`;
 
-  const options = { chat_id: chatId, reply_markup: { inline_keyboard: keyboard } };
-  if (messageId) options.message_id = messageId;
+  const options = {
+    chat_id: chatId,
+    parse_mode: "Markdown",
+    reply_markup: { inline_keyboard: keyboard }
+  };
 
-  if (messageId) bot.editMessageText(text, options);
-  else bot.sendMessage(chatId, text, options);
+  if (messageId) {
+    options.message_id = messageId;
+    bot.editMessageText(text, options);
+  } else {
+    bot.sendMessage(chatId, text, options);
+  }
 }
 
-// callback_query ichida
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   const messageId = query.message.message_id;
   const [action, value] = query.data.split(":");
 
   try {
-    const movies = await Movie.findAll({ order: [['id', 'DESC']] });
-    movies.sort((a,b) => b.id - a.id);
-    console.log(movies[0]);
-    
+    // 🔥 ENG MUHIM QATOR
+    const movies = await Movie.findAll({
+      order: [['id', 'DESC']], // oxirgi qo‘shilgan birinchi
+    });
 
+    // 📄 Sahifa almashish
     if (action === "page") {
       sendMoviePage(chatId, movies, parseInt(value), messageId);
     }
 
+    // 🎬 Film tanlanganda
     if (action === "movie") {
-      const movie = movies[parseInt(value)];
+      const movieId = parseInt(value);
+
+      const movie = movies.find(m => m.id === movieId);
       if (!movie) return;
 
-      const info = `🎬 Фильм: ${movie.film}\n📌 Жанр: ${movie.janr}\n📅 Год: ${movie.yil}`;
+      const info =
+        `🎬 *Фильм:* ${movie.film}\n` +
+        `📌 *Жанр:* ${movie.janr}\n` +
+        `📅 *Год:* ${movie.yil}`;
+
       if (movie.file_id) {
-        if (movie.type === "video") bot.sendVideo(chatId, movie.file_id, { caption: info });
-        else if (movie.type === "document") bot.sendDocument(chatId, movie.file_id, { caption: info });
-        else if (movie.type === "animation") bot.sendAnimation(chatId, movie.file_id, { caption: info });
+        if (movie.type === "video")
+          bot.sendVideo(chatId, movie.file_id, { caption: info, parse_mode: "Markdown" });
+
+        else if (movie.type === "document")
+          bot.sendDocument(chatId, movie.file_id, { caption: info, parse_mode: "Markdown" });
+
+        else if (movie.type === "animation")
+          bot.sendAnimation(chatId, movie.file_id, { caption: info, parse_mode: "Markdown" });
+
       } else {
         bot.copyMessage(chatId, CHANNEL_ID, movie.message_id);
       }
@@ -112,11 +136,12 @@ bot.on("callback_query", async (query) => {
 
   } catch (err) {
     console.error(err);
-    bot.sendMessage(chatId, "Произошла ошибка.");
+    bot.sendMessage(chatId, "❌ Произошла ошибка.");
   }
 
   bot.answerCallbackQuery(query.id);
 });
+
 
 bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
   const chatId = msg.chat.id;
