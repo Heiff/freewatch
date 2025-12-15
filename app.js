@@ -93,6 +93,9 @@ bot.on("callback_query", async (query) => {
   ],
 });
 
+console.log(movies);
+
+
     if (action === "page") {
       sendMoviePage(chatId, movies, parseInt(value), messageId);
     }
