@@ -93,7 +93,7 @@ bot.on("callback_query", async (query) => {
   ],
 });
 
-console.log(movies);
+console.log(movies.reverce());
 
 
     if (action === "page") {
