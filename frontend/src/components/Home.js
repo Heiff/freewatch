@@ -33,7 +33,7 @@ const Home = () => {
                 <h1>Фильмы</h1>
                 <div className='cards'>
                     {
-                        data.slice(-10).reverse().map(el =>{                            
+                        data.slice(0,10).map(el =>{                            
                             return(
                                 <Link to={`/movie/${el.id}`} key={el.id}>
                                     <h2>{el.film}</h2>
