@@ -3,6 +3,8 @@ import about from '../about-us.webp'
 import { Context } from '../Context'
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import SlidePc from './SlidePc';
+import SlideMb from './SlideMb';
 const Home = () => {
     const { data } = useContext(Context);
   return (
@@ -19,7 +21,7 @@ const Home = () => {
             <div className='about-us'>
                 <h1>О нас</h1>
                 <div className='cards'>
-                    <img src={about} fetchpriority="high" alt='watching movie'/>
+                    <img src={about} alt='watching movie'/>
                     <div>
                         <h2>Смотрите фильмы только в Telegram без рекламы.</h2>
                         <p>С нашим ботом вы можете смотреть любимые фильмы бесплатно! Никакой рекламы, никаких ограничений — только через Telegram, в любое время и в любом месте. Удобство и свобода просмотра — наш приоритет.</p>
@@ -47,6 +49,10 @@ const Home = () => {
                         })
                     }
                 </div>
+            </div>
+            <div className='slide'>
+                    <SlidePc/>
+                    <SlideMb/>
             </div>
         </div>
     </div>

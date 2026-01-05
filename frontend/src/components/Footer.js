@@ -1,53 +1,52 @@
-import React, { useContext, useRef, useEffect, useState } from "react";
-import { Context } from "../Context";
-import { Link } from "react-router-dom";
-
+import React from 'react'
+import logo from '../logo.webp'
+import { Link } from 'react-router-dom'
 const Footer = () => {
-  const { data } = useContext(Context);
-  const sliderRef = useRef(null);
-  const [current, setCurrent] = useState(0);
-
-  const cardWidth = 250 + 20; // card width + gap (CSS bilan mos)
-
-  // --- Scrollni yangilash ---
-  const scrollTo = (i) => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollTo({
-        left: i * cardWidth,
-        behavior: "smooth",
-      });
-      setCurrent(i);
-    }
-  };
-
-  // --- Auto-slide har 3 sekund ---
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const nextIndex = (current + 1) % data.length; // loop qilish
-      scrollTo(nextIndex);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [current, data.length]);
-
   return (
-    <div className="footer">
-      <div className="container">
-        <div className="cards" ref={sliderRef}>
-          {data.map((el) => (
-            <Link to={`/movie/${el.id}`} key={el.id} className="card-item">
-              <h2>{el.film}</h2>
-              <img src={el.thumb_url} alt="" />
-              <div>
-                <p>📌 Жанр: {el.janr}</p>
-                <p>📅 Год: {el.yil}</p>
-              </div>
-            </Link>
-          ))}
+    <footer>
+      <div className='container'>
+        <div className='cards'>
+          <div className='icons'>
+            <a
+              href="https://t.me/moviesfreewatchbot?start"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-telegram"></i>
+            </a>
+            <a
+              href="https://www.tiktok.com/@moviesfreewatch7?_r=1&_t=ZP-92pUOxCmZJP"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-tiktok"></i>
+            </a>
+            <a
+              href="https://youtube.com/@about-moviee?si=0i5ikLgjNS3NDIjV"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-youtube"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/moviefreewatch?igsh=MTkzM2E0eHJvZmN6bQ=="
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fa-brands fa-instagram"></i>
+            </a>
+
+          </div>
+          <div>
+            <Link to="/movies">Фильмы</Link>
+            <button disabled>О нас</button>
+            <button disabled>Категории</button>
+            <button disabled>Контакты</button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    </footer>
+  )
+}
 
-export default Footer;
+export default Footer
