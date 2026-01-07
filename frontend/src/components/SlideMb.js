@@ -36,7 +36,7 @@ const SlideMb = () => {
                 {data.map((el) => (
                     <Link to={`/movie/${el.id}`} key={el.id} className="card">
                         <h2>{el.film}</h2>
-                        <img src={el.thumb_url} alt="" />
+                        <img src={el.thumb_url} loading="lazy" alt={el.film} />
                         <div>
                             <p>📌 Жанр: {el.janr}</p>
                             <p>📅 Год: {el.yil}</p>

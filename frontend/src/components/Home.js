@@ -44,7 +44,7 @@ const Home = () => {
                                 return (
                                     <Link to={`/movie/${el.id}`} key={el.id}>
                                         <h2>{el.film}</h2>
-                                        <img src={el.thumb_url} alt={el.film} />
+                                        <img src={el.thumb_url} loading="lazy" alt={el.film} />
                                         <div>
                                             <p>📌 Жанр: {el.janr}</p>
                                             <p>📅 Год: {el.yil}</p>
