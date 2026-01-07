@@ -23,7 +23,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "watch": "sass --watch ./src/styles/scss/App.scss:./src/styles/css/App.css --style=expanded"
-
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "rollup-plugin-visualizer": "^6.0.5"
   }
 }

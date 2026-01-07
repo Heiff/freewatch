@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from '../logo.webp'
 import { Link } from 'react-router-dom'
 const Footer = () => {
   return (

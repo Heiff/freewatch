@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useRef } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
@@ -26,21 +26,21 @@ const ContextProvider = ({ children }) => {
   }
   useEffect(() =>{
     GetData()
-  },[]);
+  },[api]);
   
 
   const Filter = async() =>{
     try {        
       if(byJanr && !byYear) {
-        const obj = data.filter((el) => el.janr == byJanr);      
+        const obj = data.filter((el) => el.janr === byJanr);      
         setSortingData(obj)
       } 
       else if(byYear && !byJanr){
-        const obj = data.filter((el) => el.yil == byYear);      
+        const obj = data.filter((el) => el.yil === byYear);      
         setSortingData(obj)
       }
       else{
-        const obj = data.filter((el) => el.janr == byJanr && el.yil == byYear);      
+        const obj = data.filter((el) => el.janr === byJanr && el.yil === byYear);      
         setSortingData(obj)
       }
     } catch (error) {
@@ -58,7 +58,7 @@ const ContextProvider = ({ children }) => {
       duration: 500,
       easing: "ease-in-out",
     });
-  }, []);
+  }, [api]);
   useEffect(() => {
     AOS.refresh();
   }, [active]);
