@@ -26,7 +26,7 @@ const SiteMap = async (req, res) => {
 ${movies
                 .map((movie) => `
   <url>
-    <loc>https://yourdomain.com/movie/${encodeURIComponent(movie.film)}</loc>
+    <loc>https://freewatch.watch/movie/${encodeURIComponent(movie.id)}</loc>
     ${movie.updated_at ? `<lastmod>${movie.updated_at.toISOString()}</lastmod>` : ""}
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
