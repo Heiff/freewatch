@@ -3,6 +3,7 @@ const sequelize = require("./database/sequelize");
 const express = require("express");
 const Movie = require("./models/Movie");
 const router = require("./route/routers");
+const sitemap = require('./route/sitemap')
 const Users = require("./models/Users");
 const cors = require("cors");
 const axios = require("axios");
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static("uploads"));
 app.use("/api",router);
+app.use("/",sitemap);
 
 
 const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
