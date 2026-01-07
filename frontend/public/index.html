@@ -10,29 +10,26 @@
   <meta property="og:image" content="%PUBLIC_URL%/logo.png" />
   <meta name="google-site-verification" content="1DmB6_qLO4BZiCZYOo3GGPsG8ETz0Qc8-LNsc__Jt6I" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.jpg" />
-  
-  <!-- Font Awesome preloaded -->
-   <link rel="preload"
-      as="image"
-      href="%PUBLIC_URL%/about-us.webp"
-      fetchpriority="high">
 
+  <!-- 🔥 LCP IMAGE PRELOAD (ENG MUHIM) -->
+  <link rel="preload" as="image" href="%PUBLIC_URL%/about-us.webp" fetchpriority="high">
 
-   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preload" as="font" type="font/woff2" crossorigin
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/webfonts/fa-brands-400.woff2">
+  <!-- 🔥 REACT MAIN CSS (RENDER BLOCK EMAS) -->
+  <link rel="preload" href="%PUBLIC_URL%/static/css/main.113115bc.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="%PUBLIC_URL%/static/css/main.113115bc.css">
+  </noscript>
 
-   <link rel="preload" href="%PUBLIC_URL%/static/css/main.113115bc.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="%PUBLIC_URL%/static/css/main.113115bc.css">
-</noscript>
+  <!-- Font Awesome CSS (kech yuklanadi, render block qilmaydi) -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  </noscript>
 
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" /></noscript>
-
-  <!-- React main CSS preloaded -->
-  <link rel="preload" href="%PUBLIC_URL%/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="%PUBLIC_URL%/css/main.css" /></noscript>
+  <!-- Preconnect font CDN -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <title>FreeWatch</title>
@@ -41,26 +38,18 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNLLR0X6VK"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-ZNLLR0X6VK');
   </script>
 </head>
 
 
+
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
 </body>
 
 </html>
