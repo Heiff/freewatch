@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 
 const Context = createContext()
 const ContextProvider = ({ children }) => {
-  const api = 'http://13.60.191.29/api'
+  const api = 'http://freewatch.watch/api'
   const navigate = useNavigate();
   const [data,setData] = useState([]);
   const [sortingData,setSortingData] = useState([])
