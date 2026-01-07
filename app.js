@@ -19,15 +19,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
   maxAge: '30d'
 }));
-app.use(express.static(path.join(__dirname, 'frontend/build'), {
-  maxAge: '1y',
-  immutable: true
+app.use(express.static('frontend/build', {
+  maxAge: '1y'
 }));
 app.use("/api",router);
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-});
 
 
 
