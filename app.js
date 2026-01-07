@@ -1,6 +1,5 @@
 const TelegramBot = require("node-telegram-bot-api");
 const sequelize = require("./database/sequelize");
-const compression = require('compression');
 const express = require("express");
 const Movie = require("./models/Movie");
 const router = require("./route/routers");
@@ -12,8 +11,6 @@ const path = require("path");
 const { Sequelize } = require("sequelize");
 
 const app = express();
-
-app.use(compression());
 app.use(cors({ origin: "*", methods: ["GET","POST","PUT","DELETE","OPTIONS"], allowedHeaders: ["Content-Type","Authorization"] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
