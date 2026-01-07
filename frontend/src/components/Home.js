@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import about from '../../public/about-us.webp'
 import { Context } from '../Context'
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -22,7 +21,7 @@ const Home = () => {
                     <h1>О нас</h1>
                     <div className='cards'>
                         <img
-                            src={about}
+                            src="/about-us.webp"
                             alt="watching movie"
                             fetchpriority="high"
                             decoding="async"
