@@ -26,7 +26,7 @@ const ContextProvider = ({ children }) => {
   }
   useEffect(() =>{
     GetData()
-  },[]);
+  },[api]);
   
 
   const Filter = async() =>{
