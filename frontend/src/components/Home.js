@@ -7,7 +7,7 @@ const SlideMb = lazy(() => import('./SlideMb'));
 const Home = () => {
     const { data } = useContext(Context);
     return (
-        <div className='home'>
+        <main className='home'>
             <Suspense fallback={null}>
             <Helmet>
                 <title>Смотреть фильмы</title>
@@ -19,7 +19,7 @@ const Home = () => {
             </Helmet>
             </Suspense> 
             <div className='container'>
-                <div className='about-us'>
+                <section className='about-us'>
                     <h1>О нас</h1>
                     <div className='cards'>
                         <img
@@ -40,9 +40,9 @@ const Home = () => {
                             <a href="https://t.me/moviesfreewatchbot?start=PARAMETER" target="_blank" rel="noopener noreferrer" className="bot-btn"> Перейти в бот <span className="arrow">➡</span></a>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div className='movie'>
+                <section className='movie'>
                     <h1>Фильмы</h1>
                     <div className='cards'>
                         {
@@ -60,15 +60,15 @@ const Home = () => {
                             })
                         }
                     </div>
-                </div>
-                <div className='slide'>
+                </section>
+                <section className='slide'>
                     <Suspense fallback={<div>Loading slides...</div>}>
                         <SlidePc />
                         <SlideMb />
                     </Suspense>
-                </div>
+                </section>
             </div>
-        </div>
+        </main>
     )
 }
 
