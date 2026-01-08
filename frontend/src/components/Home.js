@@ -15,6 +15,12 @@ const Home = () => {
                 <meta property="og:title" content="Смотреть фильмы бесплатно" />
                 <meta property="og:description" content="У нас вы найдете более 1000 фильмов в отличном качестве!" />
                 <meta property="og:type" content="website" />
+                <link
+                    rel="preload"
+                    as="image"
+                    href="/about-us330.webp"
+                    fetchpriority="high"
+                />
             </Helmet>
             <div className='container'>
                 <div className='about-us'>
