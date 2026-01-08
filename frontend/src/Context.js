@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect,lazy } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-const AOS = lazy(() => import('aos'));
 import "aos/dist/aos.css";
+const AOS = lazy(() => import('aos'));
 
 
 const Context = createContext()
