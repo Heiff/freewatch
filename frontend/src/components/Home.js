@@ -23,7 +23,7 @@ const Home = () => {
                     <h1>О нас</h1>
                     <div className='cards'>
                         <img
-                            src="/about-us330.webp"
+                            src="/about-us.webp"
                             srcSet="/about-us330.webp 330w, /about-us.webp 600w"
                             sizes="(max-width: 600px) 330px, 600px"
                             width="330"
