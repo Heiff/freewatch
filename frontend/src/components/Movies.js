@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect,Suspense, lazy } from 'react';
 import { Context } from '../Context';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
 
 const Movies = () => {
   const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
@@ -40,6 +40,7 @@ const Movies = () => {
 
   return (
     <div className='movies'>
+      <Suspense fallback={null}>
       <Helmet>
         <title>Смотреть фильмы</title>
         <meta name="description" content={`Смотреть ${keywords}`} />
@@ -48,7 +49,7 @@ const Movies = () => {
         <meta property="og:description" content="У нас вы найдете более 1000 фильмов в отличном качестве!" />
         <meta property="og:type" content="website" />
       </Helmet>
-
+      </Suspense>
       <div className='container'>
         {/* FILTER */}
         <div className='filter'>

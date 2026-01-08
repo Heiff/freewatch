@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, Suspense, lazy } from 'react'
 import { Context } from '../Context'
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import SlidePc from './SlidePc';
-import SlideMb from './SlideMb';
+const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
+const SlidePc = lazy(() => import('./SlidePc'));
+const SlideMb = lazy(() => import('./SlideMb'));
 const Home = () => {
     const { data } = useContext(Context);
     return (
         <div className='home'>
+            <Suspense fallback={null}>
             <Helmet>
                 <title>Смотреть фильмы</title>
                 <meta name="description" content="У нас вы найдете более 1000 фильмов в отличном качестве! Забудьте про надоедливую рекламу — всё доступно только через Telegram. Выберите любой фильм и наслаждайтесь просмотром прямо сейчас. Легко, удобно и бесплатно — идеальный способ провести время с любимыми фильмами в любое время и в любом месте." />
@@ -22,6 +23,7 @@ const Home = () => {
                     fetchpriority="high"
                 />
             </Helmet>
+            </Suspense> 
             <div className='container'>
                 <div className='about-us'>
                     <h1>О нас</h1>
@@ -66,8 +68,10 @@ const Home = () => {
                     </div>
                 </div>
                 <div className='slide'>
-                    <SlidePc />
-                    <SlideMb />
+                    <Suspense fallback={<div>Loading slides...</div>}>
+                        <SlidePc />
+                        <SlideMb />
+                    </Suspense>
                 </div>
             </div>
         </div>

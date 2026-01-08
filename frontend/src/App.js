@@ -1,4 +1,4 @@
-import React,{ Suspense, lazy } from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -9,16 +9,30 @@ const Movie = lazy(() => import('./components/Movie'));
 const App = () => {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <ScrollToTop />
-      <Suspense fallback={<div>Loading...</div>}>
+
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/movies' element={<Movies/>}/>
-        <Route path='/movie/:id' element={<Movie/>}/>
+        <Route path="/" element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <Home />
+          </Suspense>
+        } />
+        <Route path="/movies" element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <Movies />
+          </Suspense>
+        } />
+        <Route path="/movie/:id" element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <Movie />
+          </Suspense>
+        } />
+
+
       </Routes>
-      </Suspense>
-      <Footer/>
+
+      <Footer />
     </div>
   )
 }

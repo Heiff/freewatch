@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState,Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { Context } from '../Context';
-import { Helmet } from 'react-helmet-async';
+const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
 
 const Movie = () => {
     const { api } = useContext(Context);
@@ -27,6 +27,7 @@ const Movie = () => {
             {
                 data.map((el) => {
                     return (
+                        <Suspense fallback={null}>
                         <Helmet>
                             <title>{el.film} {el.yil}</title>
                             <meta name="description" content={`${el.film} У нас вы найдете более 1000 фильмов в отличном качестве! Забудьте про надоедливую рекламу — всё доступно только через Telegram. Выберите любой фильм и наслаждайтесь просмотром прямо сейчас. Легко, удобно и бесплатно — идеальный способ провести время с любимыми фильмами в любое время и в любом месте.`} />
@@ -35,6 +36,7 @@ const Movie = () => {
                             <meta property="og:description" content={`${el.film} У нас вы найдете более 1000 фильмов в отличном качестве!`} />
                             <meta property="og:type" content="website" />
                         </Helmet>
+                        </Suspense>
                     )
                 })
             }
