@@ -23,7 +23,7 @@ const Movie = () => {
     }, [id]);
 
     return (
-        <div className='movie-page'>
+        <main className='movie-page'>
             {
                 data.map((el) => {
                     return (
@@ -40,7 +40,7 @@ const Movie = () => {
                     )
                 })
             }
-            <div className='box'>
+            <section className='box'>
                 {data.map((el) => (
                     <div className='cards' key={el.id}>
                         <img src={el.thumb_url} alt={el.film} />
@@ -60,8 +60,8 @@ const Movie = () => {
                         </div>
                     </div>
                 ))}
-            </div>
-        </div>
+            </section>
+        </main>
     );
 };
 

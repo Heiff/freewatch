@@ -39,7 +39,7 @@ const Movies = () => {
   };
 
   return (
-    <div className='movies'>
+    <main className='movies'>
       <Suspense fallback={null}>
       <Helmet>
         <title>Смотреть фильмы</title>
@@ -52,7 +52,7 @@ const Movies = () => {
       </Suspense>
       <div className='container'>
         {/* FILTER */}
-        <div className='filter'>
+        <section className='filter'>
           <div>
             <label htmlFor="genre">Выберите жанр:</label>
           <select id="genre" onChange={(e) => setByJanr(e.target.value)}>
@@ -70,10 +70,10 @@ const Movies = () => {
           </div>
 
           <button onClick={handleFilter}>Фильтр</button>
-        </div>
+        </section>
 
         {/* MOVIES LIST */}
-        <div className='box'>
+        <section className='box'>
           {currentItems.map((el) => (
             <Link data-aos="flip-left" to={`/movie/${el.id}`} key={el.id} className="movie-card">
               <h1>{el.film}</h1>
@@ -85,10 +85,10 @@ const Movies = () => {
               </div>
             </Link>
           ))}
-        </div>
+        </section>
 
         {/* PAGINATION */}
-        <div className='pagination'>
+        <section className='pagination'>
           <button
             onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
             disabled={currentPage === 1}
@@ -104,9 +104,9 @@ const Movies = () => {
           >
             Следующая
           </button>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 
