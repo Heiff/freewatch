@@ -10,6 +10,7 @@ const Footer = () => {
               href="https://t.me/moviesfreewatchbot?start"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Перейти"
             >
               <i className="fa-brands fa-telegram"></i>
             </a>
@@ -17,6 +18,7 @@ const Footer = () => {
               href="https://www.tiktok.com/@moviesfreewatch7?_r=1&_t=ZP-92pUOxCmZJP"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Перейти"
             >
               <i className="fa-brands fa-tiktok"></i>
             </a>
@@ -24,6 +26,7 @@ const Footer = () => {
               href="https://youtube.com/@about-moviee?si=0i5ikLgjNS3NDIjV"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Перейти"
             >
               <i className="fa-brands fa-youtube"></i>
             </a>
@@ -31,6 +34,7 @@ const Footer = () => {
               href="https://www.instagram.com/moviefreewatch?igsh=MTkzM2E0eHJvZmN6bQ=="
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Перейти"
             >
               <i className="fa-brands fa-instagram"></i>
             </a>
