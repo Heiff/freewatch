@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ReactComponent as TelegramIcon } from "./tg.svg";
 import { ReactComponent as TiktokIcon } from "./tiktok.svg";
-import { ReactComponent as YoutubeIcon } from "./tg.svg";
-import { ReactComponent as InstaIcon } from "./tg.svg";
+import { ReactComponent as YoutubeIcon } from "./youtube.svg";
+import { ReactComponent as InstaIcon } from "./insta.svg";
 const Footer = () => {
   return (
     <footer>
