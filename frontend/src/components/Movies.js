@@ -1,10 +1,8 @@
 import React, { useContext, useState, useEffect, Suspense, lazy } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
-const SlideHelmet = lazy(() =>
-  import("react-helmet-async").then((m) => ({ default: m.Helmet }))
-);
 
 const Movies = () => {
   const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
@@ -46,9 +44,8 @@ const Movies = () => {
 
   return (
     <main className="movies">
-      {/* ✅ SEO lazy */}
-      <Suspense fallback={null}>
-        <SlideHelmet>
+      
+        <Helmet>
           <title>Смотреть фильмы бесплатно | FreeWatch</title>
           <meta
             name="description"
@@ -61,8 +58,7 @@ const Movies = () => {
             content="Более 1000 фильмов без рекламы. Смотрите через Telegram."
           />
           <meta property="og:type" content="website" />
-        </SlideHelmet>
-      </Suspense>
+        </Helmet>
 
       <div className="container">
         {/* FILTER */}

@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, Suspense, lazy } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const SlidePc = lazy(() => import("./SlidePc"));
 const SlideMb = lazy(() => import("./SlideMb"));
-const { Helmet } = lazy(() =>
-  import("react-helmet-async").then((m) => ({ default: m }))
-);
+
 
 const Home = () => {
   const { data } = useContext(Context);
@@ -25,8 +24,6 @@ const Home = () => {
 
   return (
     <main className="home">
-      {/* ✅ SEO faqat Home uchun yuklanadi */}
-      <Suspense fallback={null}>
         <Helmet>
           <title>Смотреть фильмы бесплатно | FreeWatch</title>
           <meta
@@ -44,7 +41,6 @@ const Home = () => {
           />
           <meta property="og:type" content="website" />
         </Helmet>
-      </Suspense>
 
       <div className="container">
         <section className="about-us">
