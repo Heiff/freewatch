@@ -1,9 +1,19 @@
-import React, { useContext, Suspense, lazy } from 'react'
+import React, { useContext, Suspense, lazy, useEffect } from 'react'
 import { Context } from '../Context'
 import { Link } from 'react-router-dom';
 const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
 const SlidePc = lazy(() => import('./SlidePc'));
 const SlideMb = lazy(() => import('./SlideMb'));
+import "aos/dist/aos.css";
+  useEffect(() => {
+    import("aos").then((AOS) => {
+      AOS.default.init({
+        duration: 500,
+        easing: "ease-in-out",
+        once: true,
+      });
+    });
+  }, [true]);
 const Home = () => {
     const { data } = useContext(Context);
     return (

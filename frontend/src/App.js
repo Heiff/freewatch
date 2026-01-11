@@ -1,40 +1,31 @@
-import React, { Suspense, lazy } from 'react'
-import { Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import ScrollToTop from './components/ScrollToTop'
-const Home = lazy(() => import('./components/Home'));
-const Movies = lazy(() => import('./components/Movies'));
-const Movie = lazy(() => import('./components/Movie'));
-const App = () => {
+import React, { Suspense, lazy } from "react";
+import { Route, Routes } from "react-router-dom";
+
+const Navbar = lazy(() => import("./components/Navbar"));
+const Footer = lazy(() => import("./components/Footer"));
+const ScrollToTop = lazy(() => import("./components/ScrollToTop"));
+
+const Home = lazy(() => import("./components/Home"));
+const Movies = lazy(() => import("./components/Movies"));
+const Movie = lazy(() => import("./components/Movie"));
+
+function App() {
   return (
-    <div>
+    <Suspense fallback={<div style={{display:"flex",justifyContent:"center",minHeight:"100vh",alignItems:"center",flexDirection:"column"}}>Loading...</div>}>
+      
       <Navbar />
       <ScrollToTop />
 
       <Routes>
-        <Route path="/" element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <Home />
-          </Suspense>
-        } />
-        <Route path="/movies" element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <Movies />
-          </Suspense>
-        } />
-        <Route path="/movie/:id" element={
-          <Suspense fallback={<div>Loading...</div>}>
-            <Movie />
-          </Suspense>
-        } />
-
-
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/movie/:id" element={<Movie />} />
       </Routes>
 
       <Footer />
-    </div>
-  )
+
+    </Suspense>
+  );
 }
 
-export default App
+export default App;
