@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, Suspense, lazy } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
