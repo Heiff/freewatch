@@ -1,12 +1,19 @@
-import React, { useContext, Suspense, lazy, useEffect } from 'react'
-import { Context } from '../Context'
-import { Link } from 'react-router-dom';
-import "aos/dist/aos.css";
-const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
-const SlidePc = lazy(() => import('./SlidePc'));
-const SlideMb = lazy(() => import('./SlideMb'));
+import React, { useContext, useEffect, Suspense, lazy } from "react";
+import { Context } from "../Context";
+import { Link } from "react-router-dom";
 
+const SlidePc = lazy(() => import("./SlidePc"));
+const SlideMb = lazy(() => import("./SlideMb"));
+const { Helmet } = lazy(() =>
+  import("react-helmet-async").then((m) => ({ default: m }))
+);
+
+const Home = () => {
+  const { data } = useContext(Context);
+
+  // ✅ AOS faqat Home ochilganda yuklanadi
   useEffect(() => {
+    import("aos/dist/aos.css");
     import("aos").then((AOS) => {
       AOS.default.init({
         duration: 500,
@@ -14,69 +21,89 @@ const SlideMb = lazy(() => import('./SlideMb'));
         once: true,
       });
     });
-  }, [true]);
-const Home = () => {
-    const { data } = useContext(Context);
-    return (
-        <main className='home'>
-            <Suspense fallback={null}>
-            <Helmet>
-                <title>Смотреть фильмы</title>
-                <meta name="description" content="У нас вы найдете более 1000 фильмов в отличном качестве! Забудьте про надоедливую рекламу — всё доступно только через Telegram. Выберите любой фильм и наслаждайтесь просмотром прямо сейчас. Легко, удобно и бесплатно — идеальный способ провести время с любимыми фильмами в любое время и в любом месте." />
-                <meta name="keywords" content="фильмы, смотреть фильмы онлайн, новые фильмы, кино 2025, сериалы, смотреть сериалы, кино онлайн, лучшие фильмы, новинки кино, HD фильмы, фильмы в хорошем качестве, русские фильмы, зарубежные фильмы, боевики, комедии, ужасы, триллеры, драмы, мелодрамы, фантастика, мультфильмы, онлайн кинотеатр" />
-                <meta property="og:title" content="Смотреть фильмы бесплатно" />
-                <meta property="og:description" content="У нас вы найдете более 1000 фильмов в отличном качестве!" />
-                <meta property="og:type" content="website" />
-            </Helmet>
-            </Suspense> 
-            <div className='container'>
-                <section className='about-us'>
-                    <h1>О нас</h1>
-                    <div className='cards'>
-                        <img
-                            src="/about-us.webp"
-                            alt="watching movie"
-                            fetchpriority="high"
-                            decoding="async"
-                        />
+  }, []);
 
-                        <div>
-                            <h2>Смотрите фильмы только в Telegram без рекламы.</h2>
-                            <p>С нашим ботом вы можете смотреть любимые фильмы бесплатно! Никакой рекламы, никаких ограничений — только через Telegram, в любое время и в любом месте. Удобство и свобода просмотра — наш приоритет.</p>
-                            <p>У нас вы найдете более 1000 фильмов в отличном качестве! Забудьте про надоедливую рекламу — всё доступно только через Telegram. Выберите любой фильм и наслаждайтесь просмотром прямо сейчас. Легко, удобно и бесплатно — идеальный способ провести время с любимыми фильмами в любое время и в любом месте.</p>
-                            <a href="https://t.me/moviesfreewatchbot?start=PARAMETER" target="_blank" rel="noopener noreferrer" className="bot-btn"> Перейти в бот <span className="arrow">➡</span></a>
-                        </div>
-                    </div>
-                </section>
+  return (
+    <main className="home">
+      {/* ✅ SEO faqat Home uchun yuklanadi */}
+      <Suspense fallback={null}>
+        <Helmet>
+          <title>Смотреть фильмы бесплатно | FreeWatch</title>
+          <meta
+            name="description"
+            content="Смотрите фильмы бесплатно и без рекламы через Telegram. Более 1000 фильмов в хорошем качестве. FreeWatch — быстро, удобно и бесплатно."
+          />
+          <meta
+            name="keywords"
+            content="фильмы, смотреть фильмы онлайн, кино онлайн, новые фильмы, сериалы, HD фильмы, бесплатные фильмы, фильмы без рекламы, онлайн кинотеатр"
+          />
+          <meta property="og:title" content="FreeWatch — Смотреть фильмы бесплатно" />
+          <meta
+            property="og:description"
+            content="Более 1000 фильмов без рекламы. Смотрите бесплатно через Telegram."
+          />
+          <meta property="og:type" content="website" />
+        </Helmet>
+      </Suspense>
 
-                <section className='movie'>
-                    <h1>Фильмы</h1>
-                    <div className='cards'>
-                        {
-                            data.slice(0, 10).map(el => {
-                                return (
-                                    <Link to={`/movie/${el.id}`} key={el.id}>
-                                        <h2>{el.film}</h2>
-                                        <img src={el.thumb_url} loading="lazy" alt={el.film} />
-                                        <div>
-                                            <p>📌 Жанр: {el.janr}</p>
-                                            <p>📅 Год: {el.yil}</p>
-                                        </div>
-                                    </Link>
-                                )
-                            })
-                        }
-                    </div>
-                </section>
-                <section className='slide'>
-                    <Suspense fallback={<div>Loading slides...</div>}>
-                        <SlidePc />
-                        <SlideMb />
-                    </Suspense>
-                </section>
+      <div className="container">
+        <section className="about-us">
+          <h1>О нас</h1>
+          <div className="cards">
+            <img
+              src="/about-us.webp"
+              alt="watching movie"
+              fetchpriority="high"
+              decoding="async"
+            />
+
+            <div>
+              <h2>Смотрите фильмы только в Telegram без рекламы.</h2>
+              <p>
+                С нашим ботом вы можете смотреть любимые фильмы бесплатно! Никакой
+                рекламы, никаких ограничений — только через Telegram.
+              </p>
+              <p>
+                Более 1000 фильмов в отличном качестве. Легко, удобно и бесплатно —
+                идеальный способ провести время.
+              </p>
+              <a
+                href="https://t.me/moviesfreewatchbot?start=PARAMETER"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bot-btn"
+              >
+                Перейти в бот <span className="arrow">➡</span>
+              </a>
             </div>
-        </main>
-    )
-}
+          </div>
+        </section>
 
-export default Home
+        <section className="movie">
+          <h1>Фильмы</h1>
+          <div className="cards">
+            {data.slice(0, 10).map((el) => (
+              <Link to={`/movie/${el.id}`} key={el.id}>
+                <h2>{el.film}</h2>
+                <img src={el.thumb_url} loading="lazy" alt={el.film} />
+                <div>
+                  <p>📌 Жанр: {el.janr}</p>
+                  <p>📅 Год: {el.yil}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="slide">
+          <Suspense fallback={<div>Loading slides...</div>}>
+            <SlidePc />
+            <SlideMb />
+          </Suspense>
+        </section>
+      </div>
+    </main>
+  );
+};
+
+export default Home;
