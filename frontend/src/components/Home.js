@@ -1,10 +1,11 @@
 import React, { useContext, Suspense, lazy, useEffect } from 'react'
 import { Context } from '../Context'
 import { Link } from 'react-router-dom';
+import "aos/dist/aos.css";
 const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
 const SlidePc = lazy(() => import('./SlidePc'));
 const SlideMb = lazy(() => import('./SlideMb'));
-import "aos/dist/aos.css";
+
   useEffect(() => {
     import("aos").then((AOS) => {
       AOS.default.init({

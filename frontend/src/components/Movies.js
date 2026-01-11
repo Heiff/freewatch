@@ -1,8 +1,17 @@
 import React, { useContext, useState, useEffect,Suspense, lazy } from 'react';
 import { Context } from '../Context';
 import { Link } from 'react-router-dom';
+import "aos/dist/aos.css";
 const Helmet = lazy(() => import('react-helmet-async').then(module => ({ default: module.Helmet })));
-
+useEffect(() => {
+    import("aos").then((AOS) => {
+      AOS.default.init({
+        duration: 500,
+        easing: "ease-in-out",
+        once: true,
+      });
+    });
+  }, [true]);
 const Movies = () => {
   const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
 

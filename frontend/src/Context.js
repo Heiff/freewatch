@@ -49,23 +49,6 @@ const ContextProvider = ({ children }) => {
   }
 
 
-
-
-
-  useEffect(() => {
-    AOS.init({
-      duration: 500,
-      easing: "ease-in-out",
-    });
-  }, [api]);
-  useEffect(() => {
-    AOS.refresh();
-  }, [active]);
-
-
-
-
-
   return (
     <Context.Provider value={{
       active, setActive, navigate,data,api,Filter,sortingData,setByYear,setByJanr,newData
