@@ -2,7 +2,6 @@ import React, { useContext, useEffect, Suspense, lazy } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
 const SlidePc = lazy(() => import("./SlidePc"));
 const SlideMb = lazy(() => import("./SlideMb"));
 
@@ -10,20 +9,10 @@ const SlideMb = lazy(() => import("./SlideMb"));
 const Home = () => {
   const { data } = useContext(Context);
 
-  // ✅ AOS faqat Home ochilganda yuklanadi
-  useEffect(() => {
-    import("aos/dist/aos.css");
-    import("aos").then((AOS) => {
-      AOS.default.init({
-        duration: 500,
-        easing: "ease-in-out",
-        once: true,
-      });
-    });
-  }, []);
 
   return (
     <main className="home">
+
         <Helmet>
           <title>Смотреть фильмы бесплатно | FreeWatch</title>
           <meta

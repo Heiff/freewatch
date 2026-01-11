@@ -2,11 +2,10 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import AOS from "aos";
-import("aos/dist/aos.css");
+
 
 const Movies = () => {
-  const { data, Filter, setByYear, setByJanr, newData,api } = useContext(Context);
+  const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
@@ -14,16 +13,6 @@ const Movies = () => {
   const uniqueJanrs = [...new Set(data.map((el) => el.janr))];
   const uniqueYears = [...new Set(data.map((el) => el.yil))].sort((a, b) => a - b);
 
-  // ✅ AOS faqat Movies sahifada yuklanadi
-    useEffect(() => {
-      AOS.init({
-        duration: 500,
-        easing: "ease-in-out",
-      });
-    }, [api]);
-    useEffect(() => {
-      AOS.refresh();
-    }, [api]);
 
   // Scroll tepaga
   useEffect(() => {
@@ -44,6 +33,7 @@ const Movies = () => {
 
   return (
     <main className="movies">
+  
       
         <Helmet>
           <title>Смотреть фильмы бесплатно | FreeWatch</title>
