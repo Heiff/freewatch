@@ -1,0 +1,16 @@
+.card {
+  perspective: 1000px; /* 3D effect uchun */
+  opacity: 0;
+  transform: rotateY(90deg);
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+}
+
+.card.flip-in {
+  opacity: 1;
+  transform: rotateY(0deg);
+}

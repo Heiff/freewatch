@@ -1,11 +1,38 @@
-import React, { useContext, Suspense, lazy } from 'react'
+import React, { useContext, Suspense, lazy, useEffect, useRef } from 'react'
 import { Context } from '../Context'
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
+import "../styles/css/aos.css"
 const SlidePc = lazy(() => import('./SlidePc'));
 const SlideMb = lazy(() => import('./SlideMb'));
 const Home = () => {
     const { data } = useContext(Context);
+    const cardRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("flip-in");
+          }
+        });
+      },
+      {
+        threshold: 0.1, // 10% ko‘rinish trigger
+      }
+    );
+
+    cardRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      cardRefs.current.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, []);
     return (
         <main className='home'>
 
@@ -45,21 +72,22 @@ const Home = () => {
 
                 <section className='movie'>
                     <h1>Фильмы</h1>
-                    <div className='cards'>
-                        {
-                            data.slice(0, 10).map(el => {
-                                return (
-                                    <Link to={`/movie/${el.id}`} key={el.id} data-aos="flip-left">
-                                        <h2>{el.film}</h2>
-                                        <img src={el.thumb_url} loading="lazy" alt={el.film} />
-                                        <div>
-                                            <p>📌 Жанр: {el.janr}</p>
-                                            <p>📅 Год: {el.yil}</p>
-                                        </div>
-                                    </Link>
-                                )
-                            })
-                        }
+                    <div className="cards">
+                        {data.slice(0, 10).map((el, idx) => (
+                            <Link
+                                to={`/movie/${el.id}`}
+                                key={el.id}
+                                ref={(elRef) => (cardRefs.current[idx] = elRef)}
+                                className="card flip-left"
+                            >
+                                <h2>{el.film}</h2>
+                                <img src={el.thumb_url} loading="lazy" alt={el.film} />
+                                <div>
+                                    <p>📌 Жанр: {el.janr}</p>
+                                    <p>📅 Год: {el.yil}</p>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </section>
                 <section className='slide'>
