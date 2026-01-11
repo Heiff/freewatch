@@ -1,5 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ReactComponent as TelegramIcon } from "./tg.svg";
+import { ReactComponent as TiktokIcon } from "./tiktok.svg";
+import { ReactComponent as YoutubeIcon } from "./tg.svg";
+import { ReactComponent as InstaIcon } from "./tg.svg";
 const Footer = () => {
   return (
     <footer>
@@ -12,7 +16,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="Перейти"
             >
-              <i className="fa-brands fa-telegram"></i>
+              <TelegramIcon width={28} height={28} className="i" />
             </a>
             <a
               href="https://www.tiktok.com/@moviesfreewatch7?_r=1&_t=ZP-92pUOxCmZJP"
@@ -20,7 +24,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="Перейти"
             >
-              <i className="fa-brands fa-tiktok"></i>
+              <TiktokIcon width={28} height={28} className="i" />
             </a>
             <a
               href="https://youtube.com/@about-moviee?si=0i5ikLgjNS3NDIjV"
@@ -28,7 +32,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="Перейти"
             >
-              <i className="fa-brands fa-youtube"></i>
+              <YoutubeIcon width={28} height={28} className="i" />
             </a>
             <a
               href="https://www.instagram.com/moviefreewatch?igsh=MTkzM2E0eHJvZmN6bQ=="
@@ -36,7 +40,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="Перейти"
             >
-              <i className="fa-brands fa-instagram"></i>
+              <InstaIcon width={28} height={28} className="i" />
             </a>
 
           </div>
