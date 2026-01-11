@@ -49,6 +49,14 @@ const ContextProvider = ({ children }) => {
   }
 
 
+
+
+
+
+
+
+
+
   return (
     <Context.Provider value={{
       active, setActive, navigate,data,api,Filter,sortingData,setByYear,setByJanr,newData

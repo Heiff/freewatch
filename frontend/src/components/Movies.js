@@ -2,10 +2,11 @@ import React, { useContext, useState, useEffect, Suspense, lazy } from "react";
 import { Context } from "../Context";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
+import AOS from "aos";
+import("aos/dist/aos.css");
 
 const Movies = () => {
-  const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
+  const { data, Filter, setByYear, setByJanr, newData,api } = useContext(Context);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
@@ -14,16 +15,15 @@ const Movies = () => {
   const uniqueYears = [...new Set(data.map((el) => el.yil))].sort((a, b) => a - b);
 
   // ✅ AOS faqat Movies sahifada yuklanadi
-  useEffect(() => {
-    import("aos/dist/aos.css");
-    import("aos").then((AOS) => {
-      AOS.default.init({
+    useEffect(() => {
+      AOS.init({
         duration: 500,
         easing: "ease-in-out",
-        once: true,
       });
-    });
-  }, []);
+    }, [api]);
+    useEffect(() => {
+      AOS.refresh();
+    }, [api]);
 
   // Scroll tepaga
   useEffect(() => {
