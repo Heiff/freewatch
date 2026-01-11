@@ -23,7 +23,7 @@ const Home = () => {
                     <div className='cards'>
                         <picture>
                             {/* Small screen */}
-                            <source srcSet="/about-us300.webp" media="(max-width: 700px)" />
+                            <source srcSet="/about-us330.webp" media="(max-width: 700px)" />
 
                             {/* Default / large screen */}
                             <img
