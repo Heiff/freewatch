@@ -8,7 +8,7 @@ const Home = () => {
     const { data } = useContext(Context);
     return (
         <main className='home'>
-            
+
             <Helmet>
                 <title>Смотреть фильмы</title>
                 <meta name="description" content="У нас вы найдете более 1000 фильмов в отличном качестве! Забудьте про надоедливую рекламу — всё доступно только через Telegram. Выберите любой фильм и наслаждайтесь просмотром прямо сейчас. Легко, удобно и бесплатно — идеальный способ провести время с любимыми фильмами в любое время и в любом месте." />
@@ -21,12 +21,18 @@ const Home = () => {
                 <section className='about-us'>
                     <h1>О нас</h1>
                     <div className='cards'>
-                        <img
-                            src="/about-us.webp"
-                            alt="watching movie"
-                            fetchpriority="high"
-                            decoding="async"
-                        />
+                        <picture>
+                            {/* Small screen */}
+                            <source srcSet="/about-us300.webp" media="(max-width: 700px)" />
+
+                            {/* Default / large screen */}
+                            <img
+                                src="/about-us.webp"
+                                alt="watching movie"
+                                fetchpriority="high"
+                                decoding="async"
+                            />
+                        </picture>
 
                         <div>
                             <h2>Смотрите фильмы только в Telegram без рекламы.</h2>
