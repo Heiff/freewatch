@@ -1,18 +1,18 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../Context";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
 
 const Movies = () => {
   const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
+
   const itemsPerPage = 12;
 
   const uniqueJanrs = [...new Set(data.map((el) => el.janr))];
   const uniqueYears = [...new Set(data.map((el) => el.yil))].sort((a, b) => a - b);
-
 
   // Scroll tepaga
   useEffect(() => {
@@ -28,27 +28,29 @@ const Movies = () => {
 
   const handleFilter = () => {
     Filter();
-    setCurrentPage(1);
+    setSearchParams({ page: 1 }); // filter bosilganda 1-page ga qaytadi
+  };
+
+  const changePage = (page) => {
+    setSearchParams({ page });
   };
 
   return (
     <main className="movies">
-  
-      
-        <Helmet>
-          <title>Смотреть фильмы бесплатно | FreeWatch</title>
-          <meta
-            name="description"
-            content="Смотрите фильмы бесплатно и без рекламы. Более 1000 фильмов в хорошем качестве. FreeWatch."
-          />
-          <meta name="keywords" content={keywords} />
-          <meta property="og:title" content="FreeWatch — Смотреть фильмы бесплатно" />
-          <meta
-            property="og:description"
-            content="Более 1000 фильмов без рекламы. Смотрите через Telegram."
-          />
-          <meta property="og:type" content="website" />
-        </Helmet>
+      <Helmet>
+        <title>Смотреть фильмы бесплатно | FreeWatch</title>
+        <meta
+          name="description"
+          content="Смотрите фильмы бесплатно и без рекламы. Более 1000 фильмов в хорошем качестве. FreeWatch."
+        />
+        <meta name="keywords" content={keywords} />
+        <meta property="og:title" content="FreeWatch — Смотреть фильмы бесплатно" />
+        <meta
+          property="og:description"
+          content="Более 1000 фильмов без рекламы. Смотрите через Telegram."
+        />
+        <meta property="og:type" content="website" />
+      </Helmet>
 
       <div className="container">
         {/* FILTER */}
@@ -81,7 +83,7 @@ const Movies = () => {
           {currentItems.map((el) => (
             <Link
               data-aos="flip-left"
-              to={`/movie/${el.id}`}
+              to={`/movie/${el.id}?page=${currentPage}`}
               key={el.id}
               className="movie-card"
             >
@@ -98,7 +100,7 @@ const Movies = () => {
         {/* PAGINATION */}
         <section className="pagination">
           <button
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+            onClick={() => changePage(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
           >
             Предыдущая
@@ -107,7 +109,7 @@ const Movies = () => {
           <span>{currentPage} / {totalPages}</span>
 
           <button
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+            onClick={() => changePage(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
           >
             Следующая
