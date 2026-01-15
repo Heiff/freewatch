@@ -1,13 +1,17 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../Context";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 const Movies = () => {
   const { data, Filter, setByYear, setByJanr, newData } = useContext(Context);
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // URL dan page olish
+  const query = new URLSearchParams(location.search);
+  const currentPage = Number(query.get("page")) || 1;
 
   const itemsPerPage = 12;
 
@@ -28,11 +32,12 @@ const Movies = () => {
 
   const handleFilter = () => {
     Filter();
-    setSearchParams({ page: 1 }); // filter bosilganda 1-page ga qaytadi
+    navigate(`${location.pathname}?page=1`);
   };
 
+  // PAGE almashtirish
   const changePage = (page) => {
-    setSearchParams({ page });
+    navigate(`${location.pathname}?page=${page}`);
   };
 
   return (
