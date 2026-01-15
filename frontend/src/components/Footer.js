@@ -27,14 +27,6 @@ const Footer = () => {
               <TiktokIcon width={28} height={28} className="i" />
             </a>
             <a
-              href="https://youtube.com/@about-moviee?si=0i5ikLgjNS3NDIjV"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Перейти"
-            >
-              <YoutubeIcon width={28} height={28} className="i" />
-            </a>
-            <a
               href="https://www.instagram.com/moviefreewatch?igsh=MTkzM2E0eHJvZmN6bQ=="
               target="_blank"
               rel="noopener noreferrer"
