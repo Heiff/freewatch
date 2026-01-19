@@ -93,14 +93,15 @@
 
   /* SLIDER */
   & .cards {
-    height: 535px;            /* card bilan 1 xil */
-    overflow: hidden;         /* 👈 MUHIM */
-    display: flex;
-    flex-direction: column;
-
-    padding: 0;
-    margin: 0;
-    gap: 0;                   /* 👈 MUHIM */
+    height: 535px;
+  overflow-y: auto;     /* ✅ SHART */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+  scroll-behavior: smooth;                 /* 👈 MUHIM */
 
     & a {
       position: relative;
