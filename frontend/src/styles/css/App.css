@@ -1079,15 +1079,17 @@
   .slide-mb {
     /* SLIDER */
   }
-  .slide-mb .cards {
-    height: 535px; /* card bilan 1 xil */
-    overflow: hidden; /* 👈 MUHIM */
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-    gap: 0; /* 👈 MUHIM */
-  }
+ .slide-mb .cards {
+  height: 535px;
+  overflow-y: auto;     /* ✅ SHART */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+  scroll-behavior: smooth;
+}
   .slide-mb .cards a {
     position: relative;
     width: 100%;
