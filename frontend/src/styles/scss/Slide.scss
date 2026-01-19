@@ -170,12 +170,9 @@
   }
 }
 
-@media only screen and (min-width:400px){
+@media only screen and (max-width:699px){
     .slide-pc{
         display:none;
-    }
-    .slide-mb{
-        display: block;
     }
 }
 
