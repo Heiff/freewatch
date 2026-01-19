@@ -170,17 +170,3 @@
   }
 }
 
-@media only screen and (max-width:699px){
-    .slide-pc{
-        display:none;
-    }
-}
-
-@media only screen and (min-width:700px){
-    .slide-pc{
-        display: block;
-    }
-    .slide-mb{
-        display: none;
-    }
-}
