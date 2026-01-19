@@ -6,7 +6,8 @@ const SlideMb = () => {
     const { data } = useContext(Context);
     const sliderRef = useRef(null);
     const [index, setIndex] = useState(0);
-
+    console.log(data);
+    
     const cardHeight = 535; // CSS bilan 1 xil bo‘lsin
 
     useEffect(() => {
