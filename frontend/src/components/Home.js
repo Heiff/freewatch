@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import "../styles/css/aos.css"
 const SlidePc = lazy(() => import('./SlidePc'));
-const SlideMb = lazy(() => import('./SlideMb'));
+
 const Home = () => {
     const { data } = useContext(Context);
     const cardRefs = useRef([]);
@@ -93,7 +93,6 @@ const Home = () => {
                 <section className='slide'>
                     <Suspense fallback={<div>Loading slides...</div>}>
                         <SlidePc />
-                        <SlideMb />
                     </Suspense>
                 </section>
             </div>
