@@ -8,33 +8,38 @@ const SlideMb = () => {
   const [index, setIndex] = useState(0);
   const [cardHeight, setCardHeight] = useState(0);
 
-  // card height ni data kelgandan keyin olamiz
-  useEffect(() => {
-    if (sliderRef.current && sliderRef.current.firstChild) {
-      setCardHeight(sliderRef.current.firstChild.offsetHeight);
-    }
-  }, [data]);
+useEffect(() => {
+  if (sliderRef.current && sliderRef.current.firstChild) {
+    setCardHeight(sliderRef.current.firstChild.offsetHeight);
+  }
+}, [data]);
 
-  // autoplay
-  useEffect(() => {
-    if (!data || data.length === 0) return;
+useEffect(() => {
+  if (data && data.length > 0 && sliderRef.current) {
+    setIndex(0);
+    sliderRef.current.scrollTo({ top: 0, behavior: "auto" });
+  }
+}, [data]);
 
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % data.length);
-    }, 3000);
+useEffect(() => {
+  if (!data || !data.length || !cardHeight) return;
 
-    return () => clearInterval(interval);
-  }, [data]);
+  const interval = setInterval(() => {
+    setIndex((prev) => (prev + 1) % data.length);
+  }, 3000);
 
-  // scroll
-  useEffect(() => {
-    if (sliderRef.current && cardHeight) {
-      sliderRef.current.scrollTo({
-        top: index * cardHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [index, cardHeight]);
+  return () => clearInterval(interval);
+}, [data, cardHeight]);
+
+useEffect(() => {
+  if (sliderRef.current && cardHeight) {
+    sliderRef.current.scrollTo({
+      top: index * cardHeight,
+      behavior: "smooth",
+    });
+  }
+}, [index, cardHeight]);
+
 
   // data hali kelmagan bo‘lsa
   if (!data || data.length === 0) {
