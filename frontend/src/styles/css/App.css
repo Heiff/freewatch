@@ -1144,21 +1144,4 @@
   color: #123243;
 }
 
-@media only screen and (min-width: 400px) {
-  .slide-pc {
-    display: none;
-  }
-  .slide-mb {
-    display: block;
-  }
-}
-@media only screen and (min-width: 700px) {
-  .slide-pc {
-    display: block;
-  }
-  .slide-mb {
-    display: none;
-  }
-}
-
 /*# sourceMappingURL=App.css.map */
