@@ -1,4 +1,4 @@
-@media only screen and (min-width:400px) {
+
     .slide-pc {
         display: none;
         height: 600px;
@@ -82,9 +82,11 @@
         }
     }
 
+
 .slide-mb {
+  display: block;
   padding: 40px 0;
-  background: #f5ebdc;
+  background: #f5ebdc;  
 
   & .title {
     text-align: center;
@@ -168,8 +170,16 @@
   }
 }
 
+@media only screen and (min-width:400px){
+    .slide-pc{
+        display:none;
+    }
+    .slide-mb{
+        display: block;
+    }
 }
-@media only screen and (min-width:750px){
+
+@media only screen and (min-width:700px){
     .slide-pc{
         display: block;
     }
