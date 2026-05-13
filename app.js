@@ -73,12 +73,10 @@ app.get("/movie/:id", async (req, res) => {
   }
 });
 
-// React Router uchun "catch-all" route (Express 5 uchun yangi format)
-app.get("(.*)", (req, res) => {
+// React Router uchun "catch-all" (Express 5 uchun eng xavfsiz middleware usuli)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
 });
-
-
 
 const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
 const CHANNEL_ID = -1003242203360;
