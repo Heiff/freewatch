@@ -23,10 +23,9 @@ app.use(express.static('frontend/build', {
 }));
 app.use("/api",router);
 
-// Sitemap-ni asosiy rootda ham ko'rsatish
-const { SiteMap, StaticSiteMap } = require("./controller/Movie.Controller");
-app.get("/sitemap.xml", SiteMap);
-app.get("/staticmap.xml", StaticSiteMap);
+// Sitemap-ni asosiy rootdan API-ga redirect qilish (Xavfsiz yo'l)
+app.get("/sitemap.xml", (req, res) => res.redirect("/api/sitemap.xml"));
+app.get("/staticmap.xml", (req, res) => res.redirect("/api/staticmap.xml"));
 
 // SEO uchun: /movie/:id sahifalariga meta teglarni serverda joylash
 app.get("/movie/:id", async (req, res) => {
