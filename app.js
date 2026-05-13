@@ -29,11 +29,18 @@ app.get("/staticmap.xml", (req, res) => res.redirect("/api/staticmap.xml"));
 
 // SEO uchun: /movie/:id sahifalariga meta teglarni serverda joylash
 app.get("/movie/:id", async (req, res) => {
+  const filePath = path.join(__dirname, "frontend", "build", "index.html");
+  
   try {
     const { id } = req.params;
+    
+    // Agar ID raqam bo'lmasa, shunchaki index.html ni yuboramiz
+    if (!id || isNaN(id)) {
+      return res.sendFile(filePath);
+    }
+
     const movie = await Movie.findOne({ where: { id: id } });
     
-    const filePath = path.join(__dirname, "frontend", "build", "index.html");
     if (!fs.existsSync(filePath)) {
       return res.status(404).send("Index file not found");
     }
@@ -46,7 +53,6 @@ app.get("/movie/:id", async (req, res) => {
       const imageUrl = movie.thumb_url || "https://freewatch.watch/logo.jpg";
       const pageUrl = `https://freewatch.watch/movie/${id}`;
 
-      // Meta teglarni almashtirish (regexlar optimallashtirildi)
       htmlData = htmlData
         .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
         .replace(/<meta name="description" content=".*?"\s*\/?>/i, `<meta name="description" content="${description}" />`)
@@ -57,15 +63,18 @@ app.get("/movie/:id", async (req, res) => {
         .replace(/<\/head>/i, `<link rel="canonical" href="${pageUrl}" />\n</head>`);
     }
 
-    res.send(htmlData);
+    return res.send(htmlData);
   } catch (err) {
     console.error("SEO Error:", err);
-    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+    if (fs.existsSync(filePath)) {
+      return res.sendFile(filePath);
+    }
+    return res.status(500).send("Server Error");
   }
 });
 
-// React Router uchun "catch-all" route
-app.get("*", (req, res) => {
+// React Router uchun "catch-all" route (Express 5 uchun yangi format)
+app.get("(.*)", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
 });
 
