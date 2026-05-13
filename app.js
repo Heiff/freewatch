@@ -23,6 +23,53 @@ app.use(express.static('frontend/build', {
 }));
 app.use("/api",router);
 
+// Sitemap-ni asosiy rootda ham ko'rsatish
+const { SiteMap, StaticSiteMap } = require("./controller/Movie.Controller");
+app.get("/sitemap.xml", SiteMap);
+app.get("/staticmap.xml", StaticSiteMap);
+
+// SEO uchun: /movie/:id sahifalariga meta teglarni serverda joylash
+app.get("/movie/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const movie = await Movie.findOne({ where: { id: id } });
+    
+    const filePath = path.join(__dirname, "frontend", "build", "index.html");
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).send("Index file not found");
+    }
+    
+    let htmlData = fs.readFileSync(filePath, "utf8");
+
+    if (movie) {
+      const title = `${movie.film} ${movie.yil ? movie.yil : ""} - FreeWatch`;
+      const description = `${movie.film} (${movie.yil}). Смотрите лучшие фильмы в HD качестве без рекламы через Telegram.`;
+      const imageUrl = movie.thumb_url || "https://freewatch.watch/logo.jpg";
+      const pageUrl = `https://freewatch.watch/movie/${id}`;
+
+      // Meta teglarni almashtirish (regexlar optimallashtirildi)
+      htmlData = htmlData
+        .replace(/<title>.*?<\/title>/, `<title>${title}</title>`)
+        .replace(/<meta name="description" content=".*?"\s*\/?>/i, `<meta name="description" content="${description}" />`)
+        .replace(/<meta property="og:title" content=".*?"\s*\/?>/gi, `<meta property="og:title" content="${title}" />`)
+        .replace(/<meta property="og:description" content=".*?"\s*\/?>/gi, `<meta property="og:description" content="${description}" />`)
+        .replace(/<meta property="og:image" content=".*?"\s*\/?>/gi, `<meta property="og:image" content="${imageUrl}" />`)
+        .replace(/<meta property="og:url" content=".*?"\s*\/?>/gi, `<meta property="og:url" content="${pageUrl}" />`)
+        .replace(/<\/head>/i, `<link rel="canonical" href="${pageUrl}" />\n</head>`);
+    }
+
+    res.send(htmlData);
+  } catch (err) {
+    console.error("SEO Error:", err);
+    res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+  }
+});
+
+// React Router uchun "catch-all" route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
+
 
 
 const TOKEN = "8249959313:AAFLYzg87jnQcTqlHTyfRLPQFpBRPvY6E_o";
